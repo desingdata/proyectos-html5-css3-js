@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Calendario en Html5, Css3 y JavaScript - Desing Data | ¡Su aliado estratégico en el ecosistema digital!</title>
+    <link rel="icon" href="https://desingdata.github.io/desingdata/img/DesingData_favicon-96x96.png" sizes="96x96" type="image/png">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+</head>
+<body>
+    <header>
+        <dvi class="header-left">
+            <div class="nav-controls">
+                <button class="btn-round" onclick="moveDate(-1)">‹</button>
+                <button class="btn-round" onclick="moveDate(1)">›</button>
+            </div>
+            <button class="btn-today" onclick="goToday()">Hoy</button>
+            <div class="current-date-label" id="currentDateLabel">febrero de 2026</div>
+        </dvi>
+
+        <div class="view-switcher">
+            <button class="view-btn" onclick="setView('day')" id="btn-day">Día</button>
+            <button class="view-btn" onclick="setView('week')" id="btn-week">Semana</button>
+            <button class="view-btn active" onclick="setView('month')" id="btn-month">Mes</button>
+            <button class="view-btn" onclick="setView('year')" id="btn-year">Año</button>
+            <button class="view-btn" onclick="setView('agenda')" id="btn-agenda">Agenda</button>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <button class="btn-create-floating" onclick="openEventModal()">+ Crear</button>
+        <div id="calendarContent"></div>
+    </div>
+
+    <div class="modal-overlay" id="eventModal">
+        <div class="modal-content">
+            <div class="modal-top-bar">
+                <div style="display:flex; justify-content: space-between; margin-bottom: 20px;">
+                <button class="btn-round" style="border:none; font-size: 1.5rem;"
+                 onclick="closeEventModal()">✕</button>
+                <button class="btn-today"
+                    style="background: var(--google-blue); color:white; border:none; 
+                    padding: 8px 25px; border-radius: 20px;"
+                    onclick="saveEvent()">Guardar</button>
+            </div>
+
+            <div class="title-input-container">
+                <input type="text" class="title-input" id="eventTitle" placeholder="Agregar título">
+            </div>
+
+            <div class="form-layout">
+                <div class="form-left">
+                    <div class="field-row">
+                        <input type="date" id="inputStartDate" class="form-input">
+                        <span>a</span>
+                        <input type="date" id="inputEndDate" class="form-input">
+                    </div>
+                    <div class="field-row">
+                        <input type="checkbox" id="allDay" checked>
+                        <label for="allDay" style="font-size:0.9rem">Todo el día</label>
+                    </div>
+                    <div class="field-row">
+                        <input type="text" class="form-input" style="width: 100%;" id="eventLocation"
+                            placeholder="Agregar ubicación">
+                    </div>
+                    <div style="background:#f1f3f4; padding:10px; border-radius:4px;">
+                        <div
+                            style="padding-bottom:5px; border-bottom:1px solid #ddd; 
+                            margin-bottom:10px; font-weight:bold; font-size:0.8rem">
+                            Descripción</div>
+                        <div class="editor-body" contenteditable="true" id="eventDescription"
+                            style="min-height:100px; outline:none; font-size:0.9rem"></div>
+                    </div>
+                </div>
+                <div class="guests-panel" style="border-top: 1px solid #eee; padding-top: 20px;">
+                    <h4 style="color: var(--google-blue); font-size: 0.9rem; margin-bottom: 10px;">Invitados</h4>
+                    <input type="text" class="form-input" style="width: 100%" placeholder="Correo del invitado">
+                     <div style="margin-top: 15px; font-size: 0.8rem; color: var(--text-muted);">
+                        <label><input type="checkbox" checked> Invitar a otros</label><br>
+                        <label><input type="checkbox" checked> Ver lista</label>
+                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/script.js"></script>
+</body>
+</html>
