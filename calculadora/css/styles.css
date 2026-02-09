@@ -1,0 +1,460 @@
+/* Estilos generales */
+body {
+     font-family: 'Inter', sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    /* Alinea al inicio para la barra de navegación */
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f0f2f5;
+    margin: 0;
+    padding: 0;
+    /* Reinicia el padding del body */
+    box-sizing: border-box;
+}
+/* Barra de navegación */
+.navbar {
+    width: 100%;
+    background-color: #2d3748;
+    /* Color de fondo oscuro para la barra */
+    color: #ffffff;
+    padding: 1rem 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    /* Sticky para que se quede en la parte superior */
+    top: 0;
+    z-index: 1000;
+    /* Asegura que esté por encima de otros elementos */
+}
+.navbar-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+}
+/* Menú de hamburguesa para móviles */
+.hamburger-menu {
+    display: none;
+    /* Oculto por defecto en desktop */
+    flex-direction: column;
+    cursor: pointer;
+    gap: 4px;
+    padding: 5px;
+}
+.hamburger-menu .line {
+    width: 25px;
+    height: 3px;
+    background-color: #ffffff;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+/* Estilos para el estado activo del menú de hamburguesa */
+.hamburger-menu.active .line:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+.hamburger-menu.active .line:nth-child(2) {
+    opacity: 0;
+}
+.hamburger-menu.active .line:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+/* Contenedor principal de la calculadora */
+.container {
+    background-color: #ffffff;
+    padding: 1.5rem;
+    border-radius: 1.5rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    max-width: 32rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 2rem;
+    /* Margen para separar de la barra de navegación */
+    margin-bottom: 2rem;
+    /* Margen inferior */
+}
+/* Navegación de pestañas (ahora dentro del navbar-links) */
+.navbar-links {
+    display: flex;
+    justify-content: space-around;
+    gap: 0.5rem;
+    /* Espacio entre pestañas */
+    flex-wrap: wrap;
+    /* Permite que las pestañas se envuelvan */
+}
+.navbar-links button {
+    flex-grow: 1;
+    background-color: #e2e8f0;
+    border: none;
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    outline: none;
+    color: #4a5568;
+    font-weight: 600;
+}
+.navbar-links button.active {
+    background-color: #4299e1;
+    color: #ffffff;
+}
+.navbar-links button:hover:not(.active) {
+    background-color: #cbd5e0;
+}
+/* Estilos de la pantalla de salida */
+.output {
+    background-color: #2d3748;
+    color: #ffffff;
+    padding: 1.5rem 1rem;
+    text-align: right;
+    border-radius: 0.75rem;
+    margin-bottom: 1rem;
+    overflow: hidden;
+    word-wrap: break-word;
+    min-height: 6rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+.output .previous-operand {
+    font-size: 1.25rem;
+    color: #a0aec0;
+    min-height: 1.5rem;
+}
+.output .current-operand {
+    font-size: 2.75rem;
+    font-weight: 500;
+    min-height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+/* Estilos de la rejilla de botones */
+.calculator-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+}
+.calculator-grid button {
+     background-color: #e2e8f0;
+    border: none;
+    padding: 1.25rem;
+    font-size: 1.5rem;
+    border-radius: 0.75rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    outline: none;
+    color: #2d3748;
+    font-weight: 500;
+}
+.calculator-grid button:hover {
+    background-color: #cbd5e0;
+    transform: translateY(-2px);
+}
+.calculator-grid button:active {
+    transform: translateY(0);
+}
+/* Estilos específicos de botones */
+.calculator-grid button.operator {
+    background-color: #63b3ed;
+    color: #ffffff;
+}
+.calculator-grid button.operator:hover {
+    background-color: #4299e1;
+}
+.calculator-grid button.span-two {
+    grid-column: span 2;
+    background-color: #48bb78;
+    color: #ffffff;
+}
+.calculator-grid button.span-two:hover {
+    background-color: #38a169;
+}
+.calculator-grid button.clear-all {
+    background-color: #fc8181;
+    color: #ffffff;
+}
+.calculator-grid button.clear-all:hover {
+    background-color: #e53e3e;
+}
+.calculator-grid button.delete {
+    background-color: #feb2b2;
+    color: #a0aec0;
+}
+.calculator-grid button.delete:hover {
+    background-color: #fc8181;
+}
+/* Ocultar secciones por defecto */
+.content-section {
+    display: none;
+}
+
+.content-section.active {
+    display: block;
+}
+/* Estilos para el modo programador */
+.programmer-output {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    background-color: #2d3748;
+    color: #ffffff;
+    padding: 1rem;
+    border-radius: 0.75rem;
+}
+.programmer-output div {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1rem;
+}
+.programmer-output span:last-child {
+    font-weight: bold;
+    text-align: right;
+    flex-grow: 1;
+}
+.programmer-input-group {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+.programmer-input-group input {
+    flex-grow: 1;
+    padding: 0.75rem;
+    border: 1px solid #cbd5e0;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    background-color: #f7fafc;
+    color: #2d3748;
+    outline: none;
+}
+.programmer-input-group select {
+    padding: 0.75rem;
+    border: 1px solid #cbd5e0;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    background-color: #f7fafc;
+    color: #2d3748;
+    outline: none;
+}
+/* Estilos MEJORADOS para el modo fecha */
+.date-calc-section input[type="date"],
+.date-calc-section input[type="number"],
+.date-calc-section select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #a0aec0;
+    /* Borde más definido */
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+    background-color: #f7fafc;
+    color: #2d3748;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.date-calc-section input[type="date"]:focus,
+.date-calc-section input[type="number"]:focus,
+.date-calc-section select:focus {
+    border-color: #4299e1;
+    /* Borde azul al enfocar */
+    box-shadow: 0 0 0 2px rgba(66, 153, 225, 0.5);
+    /* Sombra de enfoque */
+}
+.date-calc-section .result-box {
+    background-color: #ebf8ff;
+    /* Fondo más claro para resultados */
+    border: 1px solid #90cdf4;
+    /* Borde sutil */
+    color: #2c5282;
+    /* Texto azul oscuro */
+    padding: 1rem;
+    border-radius: 0.75rem;
+    font-size: 1.1rem;
+    min-height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-top: 1rem;
+    font-weight: 600;
+    /* Texto más fuerte */
+}
+.date-calc-section .date-controls {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+}
+.date-calc-section .date-controls input[type="number"] {
+    width: 80px;
+    margin-bottom: 0;
+    text-align: center;
+    /* Centrar texto en input numérico */
+}
+.date-calc-section .date-controls select {
+    flex-grow: 1;
+    /* Permite que el select crezca */
+    margin-bottom: 0;
+}
+.date-calc-section .date-buttons {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 0.75rem;
+}
+.date-calc-section .date-buttons button {
+    flex-grow: 1;
+    padding: 0.8rem;
+    /* Padding ligeramente menor para botones de fecha */
+    font-size: 1.1rem;
+    /* Tamaño de fuente ligeramente menor */
+    border-radius: 0.5rem;
+    font-weight: 600;
+}
+/* Estilo para los títulos de sección en Fecha y Conversor */
+.content-section h3 {
+    color: #2d3748;
+    /* Color oscuro para los títulos */
+    border-bottom: 1px solid #e2e8f0;
+    /* Línea separadora */
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.25rem;
+}
+/* Estilos MEJORADOS para el conversor */
+.converter-section select,
+.converter-section input[type="number"] {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #a0aec0;
+    /* Borde más definido */
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+    background-color: #f7fafc;
+    color: #2d3748;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.converter-section select:focus,
+.converter-section input[type="number"]:focus {
+    border-color: #4299e1;
+    box-shadow: 0 0 0 2px rgba(66, 153, 225, 0.5);
+}
+.converter-section input[type="text"][readonly] {
+    background-color: #edf2f7;
+    /* Fondo más claro para inputs de solo lectura */
+    border-color: #cbd5e0;
+    /* Borde más suave */
+    color: #4a5568;
+    /* Texto gris más oscuro */
+    cursor: default;
+    /* Cursor predeterminado */
+}
+.converter-section .result-box {
+    background-color: #ebf8ff;
+    /* Fondo más claro para resultados */
+    border: 1px solid #90cdf4;
+    /* Borde sutil */
+    color: #2c5282;
+    /* Texto azul oscuro */
+    padding: 1rem;
+    border-radius: 0.75rem;
+    font-size: 1.1rem;
+    min-height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-top: 1rem;
+    font-weight: 600;
+}
+.converter-section .unit-inputs {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    margin-bottom: 0.75rem;
+    /* Añade margen inferior para separar los pares de input/select */
+}
+.converter-section .unit-inputs select {
+    flex-grow: 1;
+    margin-bottom: 0;
+}
+.converter-section .unit-inputs input {
+    margin-bottom: 0;
+}
+.converter-section .text-center {
+    margin: 0.5rem 0;
+    /* Ajusta el margen del texto "a" */
+    font-size: 1rem;
+    color: #667eea;
+    /* Color púrpura para el "a" */
+    font-weight: 700;
+}
+.converter-section button {
+    padding: 1rem;
+    /* Aumenta el padding del botón Convertir */
+    font-size: 1.25rem;
+    /* Aumenta el tamaño de la fuente */
+    font-weight: 700;
+}
+/* Media queries para responsividad */
+@media (max-width: 768px) {
+    /* Cambiado a 768px para tablet y móvil */
+    .navbar {
+        flex-direction: row;
+        /* Mantener en fila */
+        padding: 1rem;
+    }
+    .hamburger-menu {
+        display: flex;
+        /* Mostrar el menú de hamburguesa */
+    }
+    .navbar-links {
+         display: none;
+        /* Ocultar enlaces por defecto */
+        flex-direction: column;
+        width: 100%;
+        background-color: #3f4a5a;
+        /* Fondo para el menú desplegado */
+        position: absolute;
+        top: 100%;
+        /* Debajo de la barra de navegación */
+        left: 0;
+        padding: 1rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .navbar-links.active {
+        display: flex;
+        /* Mostrar cuando está activo */
+    }
+    .navbar-links button {
+        width: 100%;
+        /* Botones de pestaña ocupan todo el ancho */
+        margin-bottom: 0.5rem;
+        font-size: 1rem;
+    }
+    .navbar-links button:last-child {
+        margin-bottom: 0;
+    }
+    .container {
+        margin-top: 1rem;
+        /* Ajustar margen superior en móvil */
+        padding: 1rem;
+        border-radius: 1rem;
+        gap: 0.75rem;
+    }
+    .output .previous-operand {
+        font-size: 1rem;
+    }
+    .output .current-operand {
+        font-size: 2.25rem;
+    }
+    .calculator-grid button {
+        padding: 1rem;
+        font-size: 1.2rem;
+        border-radius: 0.5rem;
+    }
+}

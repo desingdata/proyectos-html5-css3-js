@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Calculadora en Html5, Css3 y JavaScript - Desing Data | ¡Su aliado estratégico en el ecosistema digital!</title>
+    <link rel="icon" href="https://desingdata.github.io/desingdata/img/DesingData_favicon-96x96.png" sizes="96x96" type="image/png">
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- Incluye Tailwind CSS para un estilo rápido y responsivo -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-title">Calculadora</div>
+        <div class="hamburger-menu" id="hamburger-menu">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+        </div>
+
+        <!-- Las pestañas se mueven dentro de este contenedor para la navegación responsiva -->
+        <div class="navbar-links" id="navbar-links">
+            <button data-tab-target="standard" class="active">Estándar</button>
+            <button data-tab-target="scientific">Científica</button>
+            <button data-tab-target="programmer">Programador</button>
+            <button data-tab-target="date-calc">Fecha</button>
+            <button data-tab-target="converter">Conversor</button>
+        </div>
+    </nav>
+    <div class="container">
+        <!-- Sección de la Calculadora Estándar -->
+        <div id="standard" class="content-section active">
+            <div class="output">
+                <div data-previous-operand class="previous-operand"></div>
+                <div data-current-operand class="current-operand"></div>
+            </div>
+            <div class="calculator-grid">
+                <button data-all-clear class="clear-all">AC</button>
+                <button data-delete class="delete">DEL</button>
+                <button data-operation class="operator">÷</button>
+                <button data-number>7</button>
+                <button data-number>8</button>
+                <button data-number>9</button>
+                <button data-operation class="operator">*</button>
+                <button data-number>4</button>
+                <button data-number>5</button>
+                <button data-number>6</button>
+                <button data-operation class="operator">+</button>
+                <button data-number>1</button>
+                <button data-number>2</button>
+                <button data-number>3</button>
+                <button data-operation class="operator">-</button>
+                <button data-number>.</button>
+                 <button data-number>0</button>
+                <button data-equals class="span-two">=</button>
+            </div>
+        </div>
+
+         <!-- Sección de la Calculadora Científica -->
+        <div id="scientific" class="content-section">
+             <div class="output">
+                <div data-previous-operand-scientific class="previous-operand"></div>
+                <div data-current-operand-scientific class="current-operand"></div>
+             </div>
+              <div class="calculator-grid">
+                <button data-all-clear-scientific class="clear-all">AC</button>
+                <button data-delete-scientific class="delete">DEL</button>
+                <button data-scientific-func="pi" class="operator">π</button>
+                <button data-scientific-func="e" class="operator">e</button>
+                <button data-scientific-func="sqrt" class="operator">√</button>
+                <button data-operation-scientific class="operator">x<sup>y</sup></button>
+                <button data-scientific-func="log" class="operator">log</button>
+                <button data-scientific-func="ln" class="operator">ln</button>
+                <button data-scientific-func="sin" class="operator">sin</button>
+                <button data-scientific-func="cos" class="operator">cos</button>
+                <button data-scientific-func="tan" class="operator">tan</button>
+                <button data-scientific-func="factorial" class="operator">x!</button>
+                <button data-number-scientific>7</button>
+                <button data-number-scientific>8</button>
+                <button data-number-scientific>9</button>
+                <button data-operation-scientific class="operator">÷</button>
+                <button data-number-scientific>4</button>
+                <button data-number-scientific>5</button>
+                <button data-number-scientific>6</button>
+                <button data-operation-scientific class="operator">*</button>
+                <button data-number-scientific>1</button>
+                <button data-number-scientific>2</button>
+                <button data-number-scientific>3</button>
+                <button data-operation-scientific class="operator">+</button>
+                <button data-number-scientific>.</button>
+                <button data-number-scientific>0</button>
+                <button data-equals-scientific class="span-two">=</button>
+                <button data-operation-scientific class="operator">-</button>
+              </div>
+        </div>
+
+         <!-- Sección de la Calculadora Programador -->
+        <div id="programmer" class="content-section">
+             <div class="programmer-output">
+                    <div><span>DEC:</span> <span id="prog-dec">0</span></div>
+                    <div><span>BIN:</span> <span id="prog-bin">0</span></div>
+                    <div><span>OCT:</span> <span id="prog-oct">0</span></div>
+                    <div><span>HEX:</span> <span id="prog-hex">0</span></div>
+             </div>
+              <div class="programmer-input-group">
+                    <input type="number" id="prog-input" placeholder="Ingrese número" min="0">
+                    <select id="prog-base">
+                        <option value="10">DEC</option>
+                        <option value="2">BIN</option>
+                        <option value="8">OCT</option>
+                        <option value="16">HEX</option>
+                    </select>
+              </div>
+              <div class="calculator-grid">
+                    <button id="prog-clear" class="clear-all">CLR</button>
+                    <button id="prog-not" class="operator">NOT</button>
+                    <button id="prog-and" class="operator">AND</button>
+                    <button id="prog-or" class="operator">OR</button>
+                    <button id="prog-xor" class="operator">XOR</button>
+                    <button id="prog-lshift" class="operator">LSH</button>
+                    <button id="prog-rshift" class="operator">RSH</button>
+                    <button id="prog-eq" class="span-two">=</button>
+              </div>
+        </div>
+
+         <!-- Sección de Cálculo de Fechas -->
+        <div id="date-calc" class="content-section">
+            <h3 class="text-xl font-semibold mb-4 text-gray-700">Calcular Diferencia entre Fechas</h3>
+            <input type="date" id="date1" class="mb-2">
+            <input type="date" id="date2">
+            <button id="calculate-diff" class="operator w-full mt-4">Calcular Diferencia</button>
+            <div id="date-diff-result" class="result-box mt-4"></div>
+
+            <h3 class="text-xl font-semibold mt-6 mb-4 text-gray-700">Añadir/Restar Días</h3>
+            <input type="date" id="base-date" class="mb-2">
+            <div class="date-controls">
+                <input type="number" id="days-input" value="0" min="-100000" max="100000">
+                <select id="date-unit-select">
+                    <option value="days">Días</option>
+                    <option value="months">Meses</option>
+                    <option value="years">Años</option>
+                </select>
+            </div>
+            <div class="date-buttons">
+                <button id="add-days" class="operator w-full">Añadir</button>
+                <button id="subtract-days" class="operator w-full">Restar</button>
+            </div>
+            <div id="date-add-subtract-result" class="result-box mt-4"></div>
+        </div>
+
+         <!-- Sección de Conversor de Unidades -->
+        <div id="converter" class="content-section">
+             <select id="converter-type-select" class="mb-4">
+                <option value="currency">Divisa</option>
+                <option value="volume">Volumen</option>
+                <option value="length">Longitud</option>
+                <option value="weight">Peso y Masa</option>
+                <option value="temperature">Temperatura</option>
+                <option value="energy">Energía</option>
+                <option value="area">Área</option>
+                <option value="speed">Velocidad</option>
+                <option value="time">Tiempo</option>
+                <option value="power">Potencia</option>
+                <option value="data">Datos</option>
+                <option value="pressure">Presión</option>
+                <option value="angle">Ángulos</option>
+             </select>
+             <div class="unit-inputs">
+                <input type="number" id="input-value" placeholder="Valor" class="flex-grow">
+                <select id="from-unit-select" class="flex-grow"></select>
+             </div>
+            <div class="text-center text-gray-600 my-2">a</div>
+            <div class="unit-inputs">
+                <input type="text" id="output-value" placeholder="Resultado" readonly class="flex-grow bg-gray-100 cursor-not-allowed">
+                <select id="to-unit-select" class="flex-grow"></select>
+            </div>
+            <button id="convert-button" class="operator w-full mt-4">Convertir</button>
+            <div id="conversion-result-box" class="result-box mt-4"></div>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
