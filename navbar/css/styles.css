@@ -1,0 +1,219 @@
+/* VARIABLES GENERALES */
+ * {
+   /* Elimina márgenes por defecto */
+   margin: 0;
+   /* Elimina rellenos por defecto */
+   padding: 0;
+   /* Incluye padding y border en el ancho total */
+   box-sizing: border-box;
+   /* Fuente base */
+   font-family: Arial, Helvetica, sans-serif;
+ }
+ /*  VARIABLES DE TEMA  */
+ :root {
+    /* Fondo del navbar */
+   --bg-nav: #ffffff;
+   /* Fondo del navbar al hacer scroll */
+   --bg-nav-scroll: #f1f5f9;
+   /* Color principal del texto */
+   --text-color: #0f172a;
+   /* Color de énfasis */
+   --accent: #2563eb;
+   /* Fondo del body */
+   --bg-body: #f8fafc;
+ }
+ /* Variables cuando el body tiene la clase dark */
+ body.dark {
+    /* Fondo navbar modo oscuro */
+   --bg-nav: #020617;
+   /* Fondo navbar scroll oscuro */
+   --bg-nav-scroll: #020617;
+   /* Texto claro */
+   --text-color: #e5e7eb;
+   /* Color acento oscuro */
+   --accent: #facc15;
+   /* Fondo general oscuro */
+   --bg-body: #020617;
+ }
+ body {
+   /* Altura mínima para probar scroll */
+   min-height: 200vh;
+   /* Fondo dinámico según tema */
+   background: var(--bg-body);
+   /* Transición suave de color */
+   transition: background 0.3s ease;
+ }
+ /* NAVBAR */
+ header {
+   /* Fijo en la parte superior */
+   position: fixed;
+   /* Pegado arriba */
+   top: 0;
+   /* Pegado a la izquierda */
+   left: 0;
+   /* Ocupa todo el ancho */
+   width: 100%;
+   /* Fondo dinámico */
+   background: var(--bg-nav);
+   /* Espaciado interno */
+   padding: 15px 30px;
+   /* Animaciones */
+   transition: background 0.3s ease, box-shadow 0.3s ease;
+   /* Prioridad sobre otros elementos */
+   z-index: 1000;
+ }
+ /* Estilo del navbar al hacer scroll */
+ header.scrolled {
+   /* Cambia el fondo */
+   background: var(--bg-nav-scroll);
+   /* Sombra */
+   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+ }
+ .navbar {
+   /* Ancho máximo */
+   max-width: 1200px;
+   /* Centrado horizontal */
+   margin: auto;
+   /* Flexbox */
+   display: flex;
+   /* Centra verticalmente */
+   align-items: center;
+   /* Espacio entre logo y menú */
+   justify-content: space-between;
+ }
+ .logo {
+   /* Color destacado */
+   color: var(--accent);
+   /* Tamaño del texto */
+   font-size: 1.4rem;
+   /* Negrita */
+   font-weight: bold;
+   /* Quita subrayado */
+   text-decoration: none;
+ }
+ /* MENÚ */
+ .nav-links {
+   /* Quita viñetas */
+   list-style: none;
+   /* Menú horizontal */
+   display: flex;
+   /* Centrado vertical */
+   align-items: center;
+   /* Espacio entre links */
+   gap: 20px;
+ }
+ .nav-links a {
+   /* Color del texto */
+   color: var(--text-color);
+   /* Sin subrayado */
+   text-decoration: none;
+   /* Espacio para línea activa */
+   padding-bottom: 4px;
+   /* Animación */
+   transition: color 0.3s, border-bottom 0.3s;
+ }
+/* Link activo */
+ .nav-links a.active {
+   /* Color activo */
+   color: var(--accent);
+   /* Línea inferior */
+   border-bottom: 2px solid var(--accent);
+ }
+/* BUSCADOR */
+ .search-box {
+   /* Alinea input y botón */
+   display: flex;
+   /* Fondo suave */
+   background: rgba(255, 255, 255, 0.1);
+   /* Bordes redondeados */
+   border-radius: 6px;
+   /* Oculta desbordes */
+   overflow: hidden;
+ }
+ .search-box input {
+   /* Sin borde */
+   border: none;
+   /* Sin outline */
+   outline: none;
+   /* Espaciado interno */
+   padding: 6px 10px;
+   /* Fondo transparente */
+   background: transparent;
+   /* Color del texto */
+   color: var(--text-color);
+   /* Ancho del input */
+   width: 130px;
+ }
+ .search-box button {
+   /* Sin borde */
+   border: none;
+   /* Color acento */
+   background: var(--accent);
+   /* Tamaño del botón */
+   padding: 6px 10px;
+   /* Cursor de mano */
+   cursor: pointer;
+ }
+ /* THEME TOGGLE */
+ .theme-toggle {
+   /* Cursor interactivo */
+   cursor: pointer;
+   /* Tamaño del icono */
+   font-size: 1.2rem;
+   /* Color según tema */
+   color: var(--text-color);
+   /* Animación */
+   transition: transform 0.3s ease;
+ }
+ .theme-toggle:hover {
+   /* Giro al pasar el mouse */
+   transform: rotate(20deg);
+ }
+/* MENU MÓVIL */
+ .menu-toggle {
+   /* Oculto en desktop */
+   display: none;
+   /* Barras verticales */
+   flex-direction: column;
+   /* Espacio entre barras */
+   gap: 5px;
+   /* Cursor */
+   cursor: pointer;
+ }
+ .menu-toggle span {
+   /* Ancho de barra */
+   width: 25px;
+   /* Alto de barra */
+   height: 3px;
+   /* Color */
+   background: var(--text-color);
+ }
+ /* RESPONSIVE */
+ @media (max-width: 768px) {
+    .nav-links {
+     /* Posición flotante */
+     position: absolute;
+     /* Debajo del navbar */
+     top: 70px;
+     /* Alineado a la derecha */
+     right: 0;
+     /* Fondo */
+     background: var(--bg-nav-scroll);
+     /* Ancho completo */
+     width: 100%;
+     /* Menú vertical */
+     flex-direction: column;
+     /* Espaciado */
+     padding: 20px 0;
+     /* Oculto por defecto */
+     display: none;
+   }
+   /* Muestra el menú */
+   .nav-links.active {
+     display: flex;
+   }
+   /* Muestra hamburguesa */
+   .menu-toggle {
+     display: flex;
+   }
+ }
