@@ -1,0 +1,182 @@
+:root {
+    --bg-color: #e0e5ec;
+    --text-color: #31344b;
+    --glass-bg: rgba(255, 255, 255, 0.4);
+    --accent-color: #4facfe;
+    --second-hand: #ff4b2b;
+    --shadow: 9px 9px 16px rgb(163, 177, 198, 0.6), -9px -9px 16px rgba(255, 255, 255, 0.5);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-color: #1a1a2e;
+        --text-color: #e0e5ec;
+        --glass-bg: rgba(0, 0, 0, 0.3);
+        --shadow: 9px 9px 16px #0f0f1a, -9px -9px 16px #252542;
+    }
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: var(--bg-color);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--text-color);
+    transition: background 0.3s ease;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    padding: 2rem;
+    width: 100%;
+    max-width: 400px;
+}
+
+/* Reloj Analógico */
+.analog-clock {
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    background: var(--bg-color);
+    box-shadow: var(--shadow);
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 8px solid var(--glass-bg);
+}
+
+.analog-clock::before {
+    content: '';
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: var(--text-color);
+    border-radius: 50%;
+    z-index: 10;
+}
+
+.hand {
+    position: absolute;
+    bottom: 50%;
+    left: 50%;
+    transform-origin: bottom;
+    border-radius: 10px;
+    transform: translateX(-50%);
+}
+
+.hour-hand {
+    width: 6px;
+    height: 65px;
+    background: var(--text-color);
+}
+
+.min-hand {
+    width: 4px;
+    height: 95px;
+    background: var(--text-color);
+    opacity: 0.7;
+}
+
+.sec-hand {
+    width: 2px;
+    height: 115px;
+    background: var(--second-hand);
+    transition: transform 0.1s cubic-bezier(0.4, 2.3, 0.3, 1);
+}
+
+.number {
+    position: absolute;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.n12 {
+    top: 15px;
+}
+
+.n3 {
+    right: 20px;
+}
+
+.n6 {
+    bottom: 15px;
+}
+
+.n9 {
+    left: 20px;
+}
+
+/* Reloj Digital Unificado con Clima */
+.digital-clock {
+    width: 100%;
+    padding: 1.5rem;
+    border-radius: 25px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(15px);
+    box-shadow: var(--shadow);
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.time {
+    font-size: 3.2rem;
+    font-weight: 800;
+    margin: 0;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+}
+
+.date {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    opacity: 0.7;
+    margin: 10px 0;
+    letter-spacing: 1px;
+}
+
+.weather-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(128, 128, 128, 0.2);
+}
+
+.weather-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.weather-city {
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.weather-temp {
+    font-size: 1.4rem;
+    color: var(--accent-color);
+    font-weight: bold;
+}
+
+.weather-desc {
+    font-size: 0.75rem;
+    opacity: 0.6;
+    text-transform: capitalize;
+}
+
+.status-msg {
+    font-size: 0.7rem;
+    margin-top: 12px;
+    opacity: 0.4;
+}
