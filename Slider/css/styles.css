@@ -1,0 +1,420 @@
+:root {
+    --primary: #FF6B35;
+    --secondary: #004E89;
+    --accent: #F7B801;
+    --dark: #0A0A0A;
+    --light: #F5F5F5;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Crimson Pro', serif;
+    background: var(--dark);
+    overflow-x: hidden;
+    color: var(--light);
+}
+
+.hero-slider {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.slides-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.slide.active {
+    opacity: 1;
+    transform: translateX(0);
+    transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1),
+        opacity 0.8s ease;
+}
+
+.slide.prev {
+    transform: translateX(-100%);
+    transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1),
+        opacity 0.8s ease;
+}
+
+.slide-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    transform: scale(1);
+    transition: transform 1.5s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.slide.active .slide-background {
+    transform: scale(1.05);
+}
+
+.slide::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.3) 100%);
+    z-index: 1;
+}
+
+.slide-content {
+    position: relative;
+    z-index: 2;
+    max-width: 1200px;
+    padding: 0 60px;
+    transform: translateY(30px);
+    opacity: 0;
+    transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1) 0.3s,
+        opacity 0.8s ease 0.3s;
+}
+
+.slide.active .slide-content {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.slide-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 14px;
+    letter-spacing: 4px;
+    color: var(--accent);
+    margin-bottom: 20px;
+    display: inline-block;
+    padding: 8px 20px;
+    border: 2px solid var(--accent);
+    transform: translateX(-20px);
+    opacity: 0;
+    transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1) 0.5s,
+        opacity 0.8s ease 0.5s;
+}
+
+.slide.active .slide-label {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.slide-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(60px, 10vw, 140px);
+    line-height: 0.9;
+    margin-bottom: 30px;
+    color: var(--light);
+    text-transform: uppercase;
+    letter-spacing: -2px;
+    transform: translateX(-30px);
+    opacity: 0;
+    transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1) 0.6s,
+        opacity 0.8s ease 0.6s;
+}
+
+.slide.active .slide-title {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.slide-title span {
+    display: block;
+    color: var(--primary);
+}
+
+.slide-description {
+    font-size: 20px;
+    line-height: 1.6;
+    max-width: 600px;
+    margin-bottom: 40px;
+    font-weight: 300;
+    transform: translateY(20px);
+    opacity: 0;
+    transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1) 0.8s,
+        opacity 0.8s ease 0.8s;
+}
+
+.slide.active .slide-description {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.slide-cta {
+    display: inline-block;
+    padding: 18px 50px;
+    background: var(--primary);
+    color: var(--light);
+    text-decoration: none;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 2px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    transform: translateY(20px);
+    opacity: 0;
+    transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1) 1s,
+        opacity 0.8s ease 1s;
+}
+
+.slide.active .slide-cta {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.slide-cta::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: var(--accent);
+    transition: left 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.slide-cta:hover::before {
+    left: 0;
+}
+
+.slide-cta span {
+    position: relative;
+    z-index: 1;
+}
+
+.slide-cta:hover {
+    transform: translateY(-2px);
+}
+
+/* Navigation Controls */
+.slider-nav {
+    position: absolute;
+    bottom: 60px;
+    right: 60px;
+    z-index: 10;
+    display: flex;
+    gap: 20px;
+}
+
+.nav-btn {
+    width: 60px;
+    height: 60px;
+    border: 2px solid var(--light);
+    background: transparent;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.nav-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: var(--primary);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s ease, height 0.3s ease;
+}
+
+.nav-btn:hover::before {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+}
+
+.nav-btn svg {
+    position: relative;
+    z-index: 1;
+    width: 24px;
+    height: 24px;
+    stroke: var(--light);
+    transition: transform 0.3s ease;
+}
+
+.nav-btn:hover svg {
+    transform: scale(1.1);
+}
+
+/* Progress Indicators */
+.slide-indicators {
+    position: absolute;
+    bottom: 60px;
+    left: 60px;
+    z-index: 10;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.indicator {
+    height: 3px;
+    background: rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.indicator:nth-child(1) {
+    width: 60px;
+}
+
+.indicator:nth-child(2) {
+    width: 40px;
+}
+
+.indicator:nth-child(3) {
+    width: 50px;
+}
+
+.indicator:nth-child(4) {
+    width: 45px;
+}
+
+.indicator::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background: var(--primary);
+    transition: width 0.3s ease;
+}
+
+.indicator.active::before {
+    width: 100%;
+    animation: progress 5s linear;
+}
+
+.indicator:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+@keyframes progress {
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 100%;
+    }
+}
+
+/* Counter */
+.slide-counter {
+    position: absolute;
+    top: 60px;
+    right: 60px;
+    z-index: 10;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 100px;
+    color: rgba(255, 255, 255, 0.1);
+    line-height: 1;
+    pointer-events: none;
+}
+
+.current-number {
+    color: var(--primary);
+}
+
+/* Decorative Elements */
+.deco-line {
+    position: absolute;
+    left: 60px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 2px;
+    height: 200px;
+    background: linear-gradient(to bottom,
+            transparent,
+            var(--accent),
+            transparent);
+    z-index: 3;
+    opacity: 0;
+    transition: opacity 0.8s ease 1.2s;
+}
+
+.slide.active .deco-line {
+    opacity: 0.5;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .slide-content {
+        padding: 0 30px;
+    }
+
+    .slide-title {
+        font-size: clamp(40px, 12vw, 80px);
+    }
+
+    .slide-description {
+        font-size: 16px;
+    }
+
+    .slider-nav {
+        bottom: 30px;
+        right: 30px;
+        gap: 10px;
+    }
+
+    .nav-btn {
+        width: 50px;
+        height: 50px;
+    }
+
+    .slide-indicators {
+        bottom: 30px;
+        left: 30px;
+    }
+
+    .slide-counter {
+        top: 30px;
+        right: 30px;
+        font-size: 60px;
+    }
+
+    .deco-line {
+        display: none;
+    }
+}
+
+/* Grain Texture Overlay */
+.grain-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 100;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
