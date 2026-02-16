@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login y Registro en Html5, Css y JavaScript - Desing Data | !Su aliado estratégico en el ecosistema digitla¡</title>
+    <link rel="icon" href="https://desingdata.github.io/desingdata/img/DesingData_Icono.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="animated-bg"></div>
+    <div class="particles"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
+    <div class="auth-container">
+        <div class="card" id="authCard">
+            <div id="loginForm" class="auth-form">
+                <div class="header">
+                    <h1>Bienvenido</h1>
+                    <p>Accede a tu panel de control</p>
+                </div>
+                <form id="form-login" novalidate>
+                    <div class="input-group" id="group-login-email">
+                        <label for="login-email">Correo Electrónico</label>
+                        <input type="email" id="login-email" placeholder="ejemplo@correo.com" required>
+                        <span class="error-message">Introduce un correo válido.</span>
+                    </div>
+                    <div class="input-group" id="group-login-pass">
+                        <label for="login-pass">Contraseña</label>
+                        <input type="password" id="login-pass" placeholder="••••••••" required>
+                        <span class="error-message">La contraseña es obligatoria.</span>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+                </form>
+                <p class="switch-text">¿No tienes cuenta? <span class="switch-link" onclick="toggleForms()">Crea una ahora</span></p>
+            </div>
+            <div id="registerForm" class="auth-form hidden">
+                <div class="header">
+                    <h1>Nueva Cuenta</h1>
+                    <p>Regístrate en pocos segundos</p>
+                </div>
+                <form id="form-register" novalidate>
+                    <div class="input-group" id="group-reg-name">
+                        <label for="reg-name">Nombre Completo</label>
+                        <input type="text" id="reg-name" placeholder="Ej. Juan Pérez" required>
+                        <span class="error-message">Mínimo 3 letras, sin caracteres especiales.</span>
+                    </div>
+                    <div class="input-group" id="group-reg-email">
+                        <label for="reg-email">Correo Electrónico</label>
+                        <input type="email" id="reg-email" placeholder="ejemplo@correo.com" required>
+                        <span class="error-message">Formato de correo no válido.</span>
+                    </div>
+                    <div class="input-group" id="group-reg-pass">
+                        <label for="reg-pass">Contraseña</label>
+                        <input type="password" id="reg-pass" placeholder="8+ caracteres" required>
+                        <span class="error-message">Usa: 8+ caracteres, 1 mayúscula, 1 número y 1 símbolo.</span>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Registrarse</button>
+                </form>
+                <p class="switch-text">¿Ya eres usuario? <span class="switch-link" onclick="toggleForms()">Inicia sesión</span></p>
+            </div>
+        </div>
+    </div>
+
+    <div id="msgBox" class="message-box"></div>
+    <script src="js/script.js"></script>
+</body>
+</html>
