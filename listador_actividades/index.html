@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" />
+    <title>Listador de Actividades en Html5, Css3 y JavaScript - Desing Data | !Su aliado en el ecosistema Digital!</title>
+    <link rel="icon" href="https://desingdata.github.io/desingdata/img/DesingData_favicon-96x96.png" sizes="96x96" type="image/png">
+</head>
+ <style>
+        /* Estilos Base */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+            margin: 0;
+            padding: 24px;
+            color: #1f2937;
+        }
+
+        h1 {
+            font-size: 1.875rem;
+            font-weight: 600;
+            color: #2563eb;
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        h2 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 16px;
+            margin-top: 0;
+        }
+
+        /* Layout */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 32px;
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        /* Paneles */
+        .card {
+            background-color: #ffffff;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border-radius: 8px;
+            padding: 24px;
+        }
+
+        /* Formulario */
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        label {
+            display: block;
+            color: #374151;
+            font-size: 0.875rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 1rem;
+            color: #374151;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
+
+        textarea {
+            height: 100px;
+            resize: vertical;
+        }
+
+        /* Botones */
+        button {
+            cursor: pointer;
+            font-weight: 700;
+            padding: 8px 16px;
+            border-radius: 4px;
+            border: none;
+            transition: background-color 0.2s;
+        }
+
+        .btn-submit {
+            background-color: #22c55e;
+            color: white;
+            width: 100%;
+            font-size: 1rem;
+            margin-top: 8px;
+        }
+
+        .btn-submit:hover {
+            background-color: #15803d;
+        }
+
+        .btn-edit {
+            background-color: #eab308;
+            color: white;
+            font-size: 0.875rem;
+        }
+
+        .btn-edit:hover {
+            background-color: #a16207;
+        }
+
+        .btn-delete {
+            background-color: #ef4444;
+            color: white;
+            font-size: 0.875rem;
+        }
+
+        .btn-delete:hover {
+            background-color: #b91c1c;
+        }
+
+        /* Lista */
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .activity-item {
+            background-color: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            padding: 16px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .activity-content h3 {
+            margin: 0 0 4px 0;
+            font-size: 1.125rem;
+            color: #1f2937;
+        }
+
+        .activity-date {
+            color: #4b5563;
+            font-size: 0.875rem;
+            margin: 0 0 8px 0;
+        }
+
+        .activity-description {
+            color: #374151;
+            font-size: 0.875rem;
+            margin: 0;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 8px;
+        }
+
+        /* Errores */
+        .error-message {
+            color: #ef4444;
+            font-size: 0.75rem;
+            font-style: italic;
+            margin-top: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Listador de Actividades</h1>
+
+    <div class="container">
+        <!-- Formulario -->
+        <div class="card">
+            <h2>Agregar Nueva Actividad</h2>
+            <form id="activityForm">
+                <div class="form-group">
+                    <label for="activityName">Nombre de la Actividad:</label>
+                    <input type="text" id="activityName" name="activityName" required>
+                    <div id="nameError" class="error-message" style="display: none;"></div>
+                </div>
+                <div class="form-group">
+                    <label for="activityDate">Fecha:</label>
+                    <input type="date" id="activityDate" name="activityDate" required>
+                     <div id="dateError" class="error-message" style="display: none;"></div>
+                </div>
+                <div class="form-group">
+                    <label for="activityTime">Hora:</label>
+                    <input type="time" id="activityTime" name="activityTime" required>
+                    <div id="timeError" class="error-message" style="display: none;"></div>
+                </div>
+                <div class="form-group">
+                    <label for="activityDescription">Descripción:</label>
+                    <textarea id="activityDescription" name="activityDescription"></textarea>
+                </div>
+                <button type="submit" class="btn-submit">Agregar Actividad</button>
+            </form>
+        </div>
+
+        <!-- Lista -->
+        <div class="card">
+            <h2>Lista de Actividades</h2>
+            <ul id="activityList"></ul>
+        </div>
+    </div>
+
+    <script>
+        const activityForm = document.getElementById('activityForm');
+        const activityList = document.getElementById('activityList');
+        const activityNameInput = document.getElementById('activityName');
+        const activityDateInput = document.getElementById('activityDate');
+        const activityTimeInput = document.getElementById('activityTime');
+        const nameError = document.getElementById('nameError');
+        const dateError = document.getElementById('dateError');
+        const timeError = document.getElementById('timeError');
+
+        let activities = [];
+
+        if (localStorage.getItem('activities')) {
+            activities = JSON.parse(localStorage.getItem('activities'));
+            displayActivities();
+        }
+
+        activityForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            const activityName = activityNameInput.value.trim();
+            const activityDate = activityDateInput.value;
+            const activityTime = activityTimeInput.value;
+            const activityDescription = document.getElementById('activityDescription').value.trim();
+
+            let hasErrors = false;
+
+            if (!activityName) {
+                nameError.textContent = "Por favor, ingrese el nombre de la actividad.";
+                nameError.style.display = "block";
+                hasErrors = true;
+            } else {
+                nameError.style.display = "none";
+            }
+
+            if (!activityDate) {
+                dateError.textContent = "Por favor, ingrese la fecha de la actividad.";
+                dateError.style.display = "block";
+                hasErrors = true;
+            } else {
+                dateError.style.display = "none";
+            }
+
+            if (!activityTime) {
+                timeError.textContent = "Por favor, ingrese la hora de la actividad.";
+                timeError.style.display = "block";
+                hasErrors = true;
+            } else {
+                timeError.style.display = "none";
+            }
+
+            if (hasErrors) return;
+
+            addActivity(activityName, activityDate, activityTime, activityDescription);
+            activityForm.reset();
+        });
+
+        function addActivity(name, date, time, description) {
+            const newActivity = { name, date, time, description };
+            activities.push(newActivity);
+            localStorage.setItem('activities', JSON.stringify(activities));
+            displayActivities();
+        }
+
+        function displayActivities() {
+            activityList.innerHTML = '';
+            activities.forEach((activity, index) => {
+                const listItem = document.createElement('li');
+                listItem.classList.add('activity-item');
+
+                const activityContent = document.createElement('div');
+                activityContent.classList.add('activity-content');
+
+                const nameElement = document.createElement('h3');
+                nameElement.textContent = activity.name;
+
+                const dateElement = document.createElement('p');
+                dateElement.textContent = `Fecha: ${activity.date}, Hora: ${activity.time}`;
+                dateElement.classList.add('activity-date');
+
+                const descriptionElement = document.createElement('p');
+                descriptionElement.textContent = activity.description;
+                descriptionElement.classList.add('activity-description');
+
+                activityContent.appendChild(nameElement);
+                activityContent.appendChild(dateElement);
+                activityContent.appendChild(descriptionElement);
+
+                const buttonContainer = document.createElement('div');
+                buttonContainer.classList.add('button-group');
+
+                const editButton = document.createElement('button');
+                editButton.textContent = 'Editar';
+                editButton.classList.add('btn-edit');
+                editButton.addEventListener('click', () => editActivity(index));
+
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Eliminar';
+                deleteButton.classList.add('btn-delete');
+                deleteButton.addEventListener('click', () => deleteActivity(index));
+
+                buttonContainer.appendChild(editButton);
+                buttonContainer.appendChild(deleteButton);
+
+                listItem.appendChild(activityContent);
+                listItem.appendChild(buttonContainer);
+                activityList.appendChild(listItem);
+            });
+        }
+
+        function editActivity(index) {
+            const activity = activities[index];
+            activityNameInput.value = activity.name;
+            activityDateInput.value = activity.date;
+            activityTimeInput.value = activity.time;
+            document.getElementById('activityDescription').value = activity.description;
+
+            activities.splice(index, 1);
+            localStorage.setItem('activities', JSON.stringify(activities));
+            displayActivities();
+        }
+
+        function deleteActivity(index) {
+            activities.splice(index, 1);
+            localStorage.setItem('activities', JSON.stringify(activities));
+            displayActivities();
+        }
+    </script>
+</body>
+</html>
