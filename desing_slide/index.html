@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Desing Slide - Editor de Presentaciones en Html, Css y JavaScript</title>
+<link rel="icon" href="https://desingdata.github.io/desingdata/img/DesingData_Icono.png">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ─── MENU BAR ─── -->
+<div id="menubar">
+  <div class="logo"><div class="logo-icon">◈</div>Desing<span>Slide</span></div>
+
+  <div class="menu-group">
+    <div style="position:relative">
+      <button class="mb-btn" onclick="toggleDropdown('dd-file')">Archivo</button>
+      <div class="dropdown-menu" id="dd-file">
+        <div class="dd-item" onclick="newPresentation()">🆕 Nueva presentación<span class="shortcut">Ctrl+N</span></div>
+        <div class="dd-sep"></div>
+        <div class="dd-item" onclick="savePresentation()">💾 Guardar<span class="shortcut">Ctrl+S</span></div>
+        <div class="dd-item" onclick="exportHTML()">📤 Exportar HTML</div>
+        <div class="dd-item" onclick="exportJSON()">📋 Exportar JSON</div>
+        <div class="dd-sep"></div>
+        <div class="dd-item" onclick="importJSON()">📥 Importar JSON</div>
+        <input type="file" id="import-file" accept=".json" style="display:none" onchange="handleImport(event)">
+      </div>
+    </div>
+
+    <div style="position:relative">
+      <button class="mb-btn" onclick="toggleDropdown('dd-edit')">Editar</button>
+      <div class="dropdown-menu" id="dd-edit">
+        <div class="dd-item" onclick="doUndo()">↩️ Deshacer<span class="shortcut">Ctrl+Z</span></div>
+        <div class="dd-item" onclick="doRedo()">↪️ Rehacer<span class="shortcut">Ctrl+Y</span></div>
+        <div class="dd-sep"></div>
+        <div class="dd-item" onclick="doCut()">✂️ Cortar<span class="shortcut">Ctrl+X</span></div>
+        <div class="dd-item" onclick="doCopy()">📋 Copiar<span class="shortcut">Ctrl+C</span></div>
+        <div class="dd-item" onclick="doPaste()">📌 Pegar<span class="shortcut">Ctrl+V</span></div>
+        <div class="dd-item" onclick="doDuplicate()">⧉ Duplicar<span class="shortcut">Ctrl+D</span></div>
+        <div class="dd-sep"></div>
+        <div class="dd-item" onclick="deleteSelected()">🗑️ Eliminar<span class="shortcut">Supr</span></div>
+        <div class="dd-item" onclick="selectAll()">⬜ Seleccionar todo<span class="shortcut">Ctrl+A</span></div>
+      </div>
+    </div>
+
+    <div style="position:relative">
+      <button class="mb-btn" onclick="toggleDropdown('dd-insert')">Insertar</button>
+      <div class="dropdown-menu" id="dd-insert">
+        <div class="dd-item" onclick="insertText()">📝 Cuadro de texto</div>
+        <div class="dd-item" onclick="insertTitle()">🏷️ Título</div>
+        <div class="dd-item" onclick="insertSubtitle()">📄 Subtítulo</div>
+        <div class="dd-sep"></div>
+        <div class="dd-item" onclick="insertShape('rect')">▬ Rectángulo</div>
+        <div class="dd-item" onclick="insertShape('circle')">⬤ Círculo/Elipse</div>
+        <div class="dd-sep"></div>
+        <div class="dd-item" onclick="addSlide()">➕ Nueva diapositiva<span class="shortcut">Ctrl+M</span></div>
+        <div class="dd-item" onclick="duplicateSlide()">⧉ Duplicar diapositiva</div>
+      </div>
+    </div>
+
+    <div style="position:relative">
+      <button class="mb-btn" onclick="toggleDropdown('dd-view')">Vista</button>
+      <div class="dropdown-menu" id="dd-view">
+        <div class="dd-item" onclick="setZoom(50)">🔍 50%</div>
+        <div class="dd-item" onclick="setZoom(75)">🔍 75%</div>
+        <div class="dd-item" onclick="setZoom(100)">🔍 100%</div>
+        <div class="dd-item" onclick="setZoom(125)">🔍 125%</div>
+        <div class="dd-item" onclick="setZoom(150)">🔍 150%</div>
+        <div class="dd-sep"></div>
+        <div class="dd-item" onclick="presentMode()">▶️ Modo presentación<span class="shortcut">F5</span></div>
+      </div>
+    </div>
+
+    <div style="position:relative">
+      <button class="mb-btn" onclick="toggleSpellPanel()">🔤 Ortografía</button>
+    </div>
+  </div>
+
+  <div class="filename-area">
+    <input type="text" id="filename-input" value="Mi Presentación" placeholder="Nombre del archivo">
+    <button class="btn-primary" onclick="presentMode()">▶ Presentar</button>
+  </div>
+</div>
+
+<!-- ─── RIBBON ─── -->
+<div id="ribbon">
+  <!-- Undo/Redo -->
+  <button class="rb-btn" title="Deshacer (Ctrl+Z)" onclick="doUndo()">↩</button>
+  <button class="rb-btn" title="Rehacer (Ctrl+Y)" onclick="doRedo()">↪</button>
+  <div class="ribbon-sep"></div>
+
+  <!-- Clipboard -->
+  <button class="rb-btn" title="Cortar (Ctrl+X)" onclick="doCut()">✂</button>
+  <button class="rb-btn" title="Copiar (Ctrl+C)" onclick="doCopy()">⧉</button>
+  <button class="rb-btn" title="Pegar (Ctrl+V)" onclick="doPaste()">📋</button>
+  <div class="ribbon-sep"></div>
+
+  <!-- Font family -->
+  <select class="ribbon-select" id="font-select" onchange="applyFont()" title="Fuente">
+    <optgroup label="Populares">
+      <option value="Arial">Arial</option>
+      <option value="Georgia" selected>Georgia</option>
+      <option value="Times New Roman">Times New Roman</option>
+      <option value="Verdana">Verdana</option>
+      <option value="Trebuchet MS">Trebuchet MS</option>
+      <option value="Courier New">Courier New</option>
+    </optgroup>
+    <optgroup label="Google Fonts (Cargadas)">
+      <option value="Syne">Syne</option>
+      <option value="DM Sans">DM Sans</option>
+    </optgroup>
+    <optgroup label="Sin Serifa">
+      <option value="Helvetica">Helvetica</option>
+      <option value="Tahoma">Tahoma</option>
+      <option value="Calibri">Calibri</option>
+      <option value="Segoe UI">Segoe UI</option>
+      <option value="Impact">Impact</option>
+      <option value="Lucida Sans">Lucida Sans</option>
+      <option value="Comic Sans MS">Comic Sans MS</option>
+      <option value="Century Gothic">Century Gothic</option>
+      <option value="Franklin Gothic Medium">Franklin Gothic</option>
+    </optgroup>
+    <optgroup label="Con Serifa">
+      <option value="Palatino">Palatino</option>
+      <option value="Garamond">Garamond</option>
+      <option value="Baskerville">Baskerville</option>
+      <option value="Book Antiqua">Book Antiqua</option>
+      <option value="Cambria">Cambria</option>
+    </optgroup>
+    <optgroup label="Monoespaciadas">
+      <option value="Consolas">Consolas</option>
+      <option value="Monaco">Monaco</option>
+      <option value="Lucida Console">Lucida Console</option>
+    </optgroup>
+  </select>
+
+  <!-- Font size -->
+  <select class="ribbon-select" id="fontsize-select" onchange="applyFontSize()">
+    <option>10</option><option>12</option><option>14</option>
+    <option value="16" selected>16</option>
+    <option>18</option><option>20</option><option>24</option>
+    <option>28</option><option>32</option><option>36</option>
+    <option>40</option><option>48</option><option>56</option>
+    <option>64</option><option>72</option><option>96</option>
+  </select>
+  <div class="ribbon-sep"></div>
+
+  <!-- Text formatting -->
+  <button class="rb-btn" id="btn-bold" title="Negrita (Ctrl+B)" onclick="applyFormat('bold')"><b>B</b></button>
+  <button class="rb-btn" id="btn-italic" title="Cursiva (Ctrl+I)" onclick="applyFormat('italic')"><i>I</i></button>
+  <button class="rb-btn" id="btn-underline" title="Subrayado (Ctrl+U)" onclick="applyFormat('underline')"><u>U</u></button>
+  <button class="rb-btn" id="btn-strike" title="Tachado" onclick="applyFormat('strikeThrough')"><s>S</s></button>
+  <div class="ribbon-sep"></div>
+
+  <!-- Alignment -->
+  <button class="rb-btn" title="Alinear izquierda" onclick="applyAlign('left')">☰</button>
+  <button class="rb-btn" title="Centrar" onclick="applyAlign('center')">≡</button>
+  <button class="rb-btn" title="Alinear derecha" onclick="applyAlign('right')">☰</button>
+  <button class="rb-btn" title="Justificar" onclick="applyAlign('justify')">≣</button>
+  <div class="ribbon-sep"></div>
+
+  <!-- Lists -->
+  <button class="rb-btn" title="Lista desordenada" onclick="applyFormat('insertUnorderedList')">≡</button>
+  <button class="rb-btn" title="Lista ordenada" onclick="applyFormat('insertOrderedList')">①</button>
+  <div class="ribbon-sep"></div>
+
+  <!-- Colors -->
+  <div class="color-btn" title="Color de texto" onclick="pickTextColor()" style="cursor:pointer">
+    <span style="font-size:11px; color:var(--text-1)">A</span>
+    <div class="color-indicator" id="text-color-ind" style="background:#2563eb"></div>
+  </div>
+  <div class="color-btn" title="Color de fondo de texto" onclick="pickBgColor()" style="cursor:pointer">
+    <span style="font-size:9px; color:var(--text-1)">▓</span>
+    <div class="color-indicator" id="bg-color-ind" style="background:transparent; border: 1px solid var(--border)"></div>
+  </div>
+  <input type="color" id="text-color-picker" style="display:none" value="#2563eb" oninput="applyTextColor(this.value)">
+  <input type="color" id="bg-color-picker" style="display:none" value="#ffffff" oninput="applyBgColor(this.value)">
+  <div class="ribbon-sep"></div>
+
+  <!-- Insert buttons -->
+  <button class="rb-btn" title="Insertar cuadro de texto" onclick="insertText()">T</button>
+  <button class="rb-btn" title="Insertar título" onclick="insertTitle()" style="font-weight:700; font-size:12px">H1</button>
+  <button class="rb-btn" title="Rectángulo" onclick="insertShape('rect')">▬</button>
+  <button class="rb-btn" title="Círculo" onclick="insertShape('circle')">○</button>
+  <div class="ribbon-sep"></div>
+
+  <!-- Slide ops -->
+  <button class="rb-btn" title="Nueva diapositiva" onclick="addSlide()" style="font-size:16px">+</button>
+  <button class="rb-btn" title="Duplicar diapositiva" onclick="duplicateSlide()">⧉</button>
+  <button class="rb-btn" title="Eliminar diapositiva" onclick="deleteCurrentSlide()">🗑</button>
+  <div class="ribbon-sep"></div>
+
+  <!-- Spell check -->
+  <button class="rb-btn" title="Verificar ortografía" onclick="toggleSpellPanel()">🔤</button>
+</div>
+
+<!-- ─── MAIN ─── -->
+<div id="main">
+
+  <!-- SLIDES PANEL -->
+  <div id="slides-panel">
+    <div class="panel-header">
+      Diapositivas
+      <div style="display:flex;gap:4px">
+        <button class="icon-btn-sm" title="Agregar diapositiva" onclick="addSlide()">+</button>
+        <button class="icon-btn-sm" title="Duplicar" onclick="duplicateSlide()">⧉</button>
+      </div>
+    </div>
+    <div id="slides-list"></div>
+  </div>
+
+  <!-- CANVAS -->
+  <div id="canvas-area">
+    <div class="canvas-bg-pattern"></div>
+    <div id="slide-wrapper">
+      <div id="slide-canvas"></div>
+    </div>
+  </div>
+
+  <!-- PROPERTIES PANEL -->
+  <div id="props-panel">
+    <div class="panel-header">Propiedades</div>
+
+    <div class="props-section">
+      <div class="props-title">Posición & Tamaño</div>
+      <div class="prop-row">
+        <span class="prop-label">X:</span>
+        <input class="prop-input" id="prop-x" type="number" placeholder="0" onchange="applyPosition()">
+        <span class="prop-label">Y:</span>
+        <input class="prop-input" id="prop-y" type="number" placeholder="0" onchange="applyPosition()">
+      </div>
+      <div class="prop-row">
+        <span class="prop-label">Ancho:</span>
+        <input class="prop-input" id="prop-w" type="number" placeholder="200" onchange="applySize()">
+        <span class="prop-label">Alto:</span>
+        <input class="prop-input" id="prop-h" type="number" placeholder="100" onchange="applySize()">
+      </div>
+    </div>
+
+    <div class="props-section">
+      <div class="props-title">Fondo Diapositiva</div>
+      <div class="theme-grid" id="theme-grid"></div>
+    </div>
+
+    <div class="props-section">
+      <div class="props-title">Color del elemento</div>
+      <div class="color-swatch-row" id="el-color-swatches"></div>
+    </div>
+
+    <div class="props-section">
+      <div class="props-title">Opacidad</div>
+      <div class="prop-row">
+        <input type="range" min="0" max="100" value="100" id="prop-opacity" 
+               style="flex:1; accent-color: var(--accent)" oninput="applyOpacity(this.value)">
+        <span id="opacity-val" style="color:var(--text-1); font-size:11px; min-width:30px">100%</span>
+      </div>
+    </div>
+
+    <div class="props-section" style="border:none">
+      <div class="props-title">Orden Z</div>
+      <div class="prop-row" style="gap:4px">
+        <button class="btn-ghost" onclick="bringForward()" style="flex:1; font-size:11px">Al frente</button>
+        <button class="btn-ghost" onclick="sendBackward()" style="flex:1; font-size:11px">Atrás</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── STATUS BAR ─── -->
+<div id="statusbar">
+  <div class="status-item"><div class="status-dot"></div><span id="st-status">Listo</span></div>
+  <div class="status-item">📊 <span id="st-slides">1 diapositiva</span></div>
+  <div class="status-item">📍 <span id="st-pos">—</span></div>
+  <div id="zoom-ctrl">
+    <button class="zoom-btn" onclick="zoomOut()">−</button>
+    <span id="zoom-val">100%</span>
+    <button class="zoom-btn" onclick="zoomIn()">+</button>
+  </div>
+</div>
+
+<!-- ─── SPELL PANEL ─── -->
+<div id="spell-panel">
+  <div class="spell-header">
+    🔤 Corrector Ortográfico
+    <button class="icon-btn-sm" onclick="toggleSpellPanel()">×</button>
+  </div>
+  <div style="padding:8px 12px; background:var(--bg-3); font-size:11px; color:var(--text-2)">
+    Idioma: Español (ES)
+  </div>
+  <div id="spell-results">
+    <div style="color:var(--text-2); font-size:12px; text-align:center; padding:16px">
+      Haz clic en "Verificar" para escanear el texto
+    </div>
+  </div>
+  <div style="padding:8px 12px; border-top: 1px solid var(--border); display:flex; gap:6px">
+    <button class="btn-primary" style="flex:1; font-size:11px" onclick="runSpellCheck()">🔍 Verificar ahora</button>
+    <button class="btn-ghost" style="font-size:11px" onclick="addToDictionary()">+ Agregar</button>
+  </div>
+</div>
+
+<!-- ─── CONTEXT MENU ─── -->
+<div id="ctx-menu">
+  <div class="ctx-item" onclick="doCut()">✂ Cortar<span class="shortcut">Ctrl+X</span></div>
+  <div class="ctx-item" onclick="doCopy()">⧉ Copiar<span class="shortcut">Ctrl+C</span></div>
+  <div class="ctx-item" onclick="doPaste()">📋 Pegar<span class="shortcut">Ctrl+V</span></div>
+  <div class="ctx-sep"></div>
+  <div class="ctx-item" onclick="doDuplicate()">⧉ Duplicar<span class="shortcut">Ctrl+D</span></div>
+  <div class="ctx-item" onclick="bringForward()">⬆ Traer al frente</div>
+  <div class="ctx-item" onclick="sendBackward()">⬇ Enviar atrás</div>
+  <div class="ctx-sep"></div>
+  <div class="ctx-item danger" onclick="deleteSelected()">🗑 Eliminar<span class="shortcut">Supr</span></div>
+</div>
+
+<!-- ─── PRESENTATION MODE ─── -->
+<div id="present-overlay" style="display:none; position:fixed; inset:0; background:#000; z-index:9999; overflow:hidden">
+  <div id="present-slide" style="width:100vw; height:100vh; position:relative; display:flex; align-items:center; justify-content:center; overflow:hidden"></div>
+  <div id="present-nav" style="position:fixed; bottom:20px; left:50%; transform:translateX(-50%); display:flex; align-items:center; gap:12px; background:rgba(0,0,0,.6); backdrop-filter:blur(8px); padding:8px 16px; border-radius:50px; border:1px solid rgba(255,255,255,.1)">
+    <button onclick="prevPresentSlide()" style="background:none;border:none;color:white;font-size:18px;cursor:pointer">‹</button>
+    <span id="present-counter" style="color:rgba(255,255,255,.7); font-family:var(--font-mono); font-size:12px">1 / 1</span>
+    <button onclick="nextPresentSlide()" style="background:none;border:none;color:white;font-size:18px;cursor:pointer">›</button>
+    <button onclick="exitPresent()" style="background:none;border:none;color:rgba(255,255,255,.5);font-size:12px;cursor:pointer;margin-left:8px">Esc</button>
+  </div>
+</div>
+
+<script src="js/script.js"></script>
+</body>
+</html>
