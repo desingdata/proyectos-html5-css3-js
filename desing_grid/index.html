@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Desing Grid - Editor de Hoja de Cálculo en Html5, Css y JavaScript">
+<title>Desing Grid - Editor de Hoja de Cálculo en Html5, Css y JavaScript</title>
+<link rel="icon" href="https://desingdata.github.io/desingdata/img/DesingData_Icono.png">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="app">
+
+  <!-- TITLE BAR -->
+  <div id="titlebar">
+    <div class="logo">Desing Grid</div>
+    <input type="text" class="filename" id="filename" value="libro1.gp" spellcheck="false">
+    <span class="tag-saved" id="save-tag">● Guardado</span>
+    <div class="spacer"></div>
+    <button class="tbtn" id="btn-undo" title="Deshacer (Ctrl+Z)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 14 4 9 9 4"/><path d="M20 20v-7a4 4 0 0 0-4-4H4"/></svg></button>
+    <button class="tbtn" id="btn-redo" title="Rehacer (Ctrl+Y)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 14 20 9 15 4"/><path d="M4 20v-7a4 4 0 0 0 4-4h12"/></svg></button>
+    <div class="ribbon-sep"></div>
+    <button class="tbtn" id="btn-save" title="Exportar CSV"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></button>
+    <button class="tbtn" id="btn-import" title="Importar CSV"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></button>
+    <input type="file" id="import-input" accept=".csv" style="display:none">
+  </div>
+
+  <!-- RIBBON -->
+  <div id="ribbon">
+    <!-- Clipboard -->
+    <div class="ribbon-group">
+      <button class="rbtn" id="btn-cut" title="Cortar (Ctrl+X)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="20" r="2"/><circle cx="18" cy="20" r="2"/><path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg>
+        <span class="label">Cortar</span>
+      </button>
+      <button class="rbtn" id="btn-copy" title="Copiar (Ctrl+C)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        <span class="label">Copiar</span>
+      </button>
+      <button class="rbtn" id="btn-paste" title="Pegar (Ctrl+V)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>
+        <span class="label">Pegar</span>
+      </button>
+    </div>
+
+    <div class="ribbon-sep"></div>
+
+    <!-- Font -->
+    <div class="ribbon-group">
+      <div class="font-select-wrap">
+        <select id="font-select" title="Fuente">
+          <optgroup label="Sin Serifa">
+            <option value="DM Sans" selected>DM Sans</option>
+            <option value="Arial">Arial</option>
+            <option value="Helvetica">Helvetica</option>
+            <option value="Verdana">Verdana</option>
+            <option value="Trebuchet MS">Trebuchet MS</option>
+            <option value="Calibri">Calibri</option>
+            <option value="Segoe UI">Segoe UI</option>
+            <option value="Tahoma">Tahoma</option>
+          </optgroup>
+          <optgroup label="Con Serifa">
+            <option value="Georgia">Georgia</option>
+            <option value="Times New Roman">Times New Roman</option>
+            <option value="Garamond">Garamond</option>
+            <option value="Palatino">Palatino</option>
+            <option value="Book Antiqua">Book Antiqua</option>
+          </optgroup>
+          <optgroup label="Monoespaciada">
+            <option value="JetBrains Mono">JetBrains Mono</option>
+            <option value="Courier New">Courier New</option>
+            <option value="Lucida Console">Lucida Console</option>
+            <option value="Consolas">Consolas</option>
+          </optgroup>
+          <optgroup label="Display">
+            <option value="Syne">Syne</option>
+            <option value="Impact">Impact</option>
+            <option value="Comic Sans MS">Comic Sans MS</option>
+          </optgroup>
+        </select>
+      </div>
+      <div class="size-select-wrap">
+        <select id="size-select" title="Tamaño">
+          <option>8</option><option>9</option><option>10</option>
+          <option selected>11</option><option>12</option><option>13</option>
+          <option>14</option><option>16</option><option>18</option>
+          <option>20</option><option>22</option><option>24</option>
+          <option>28</option><option>32</option><option>36</option>
+          <option>48</option><option>60</option><option>72</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="ribbon-sep"></div>
+
+    <!-- Formatting -->
+    <div class="ribbon-group">
+      <button class="rbtn" id="btn-bold" title="Negrita (Ctrl+B)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 4h8a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z"/><path d="M6 12h9a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z"/></svg>
+      </button>
+      <button class="rbtn" id="btn-italic" title="Cursiva (Ctrl+I)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="4" x2="10" y2="4"/><line x1="14" y1="20" x2="5" y2="20"/><line x1="15" y1="4" x2="9" y2="20"/></svg>
+      </button>
+      <button class="rbtn" id="btn-underline" title="Subrayado (Ctrl+U)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3v7a6 6 0 0 0 6 6 6 6 0 0 0 6-6V3"/><line x1="4" y1="21" x2="20" y2="21"/></svg>
+      </button>
+      <button class="rbtn" id="btn-strikethrough" title="Tachado">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.3 12.0H6.7"/><path d="M10 5.5c0-1.4 1.1-2.5 2.5-2.5s2.5 1.1 2.5 2.5c0 1.4-1.1 2.5-2.5 3.5"/><path d="M14 16.5c0 1.4-1.1 2.5-2.5 2.5S9 17.9 9 16.5"/><line x1="4" y1="12" x2="20" y2="12"/></svg>
+      </button>
+    </div>
+
+    <div class="ribbon-sep"></div>
+
+    <!-- Colors -->
+    <div class="ribbon-group">
+      <div class="color-btn-wrap">
+        <button id="btn-text-color" title="Color de texto">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
+          <div class="color-strip" id="text-color-strip" style="background:#e8e8f0"></div>
+        </button>
+      </div>
+      <div class="color-btn-wrap">
+        <button id="btn-bg-color" title="Color de fondo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22C6.5 22 2 17.5 2 12S6.5 2 12 2s10 4.5 10 10-4.5 10-10 10z" fill="currentColor" opacity=".15"/><path d="M2 12h20M12 2C8 7 8 17 12 22M12 2c4 5 4 15 0 20"/></svg>
+          <div class="color-strip" id="bg-color-strip" style="background:#252533"></div>
+        </button>
+      </div>
+    </div>
+
+    <div class="ribbon-sep"></div>
+
+    <!-- Alignment -->
+    <div class="ribbon-group">
+      <button class="rbtn" id="btn-align-left" title="Alinear izquierda">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="15" y2="12"/><line x1="3" y1="18" x2="18" y2="18"/></svg>
+      </button>
+      <button class="rbtn" id="btn-align-center" title="Centrar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="6" y1="12" x2="18" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+      </button>
+      <button class="rbtn" id="btn-align-right" title="Alinear derecha">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="9" y1="12" x2="21" y2="12"/><line x1="6" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+
+    <div class="ribbon-sep"></div>
+
+    <!-- Cell ops -->
+    <div class="ribbon-group">
+      <button class="rbtn" id="btn-insert-row" title="Insertar fila">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="12" y1="12" x2="12" y2="15"/></svg>
+        <span class="label">+ Fila</span>
+      </button>
+      <button class="rbtn" id="btn-insert-col" title="Insertar columna">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/><line x1="12" y1="12" x2="15" y2="12"/></svg>
+        <span class="label">+ Col</span>
+      </button>
+      <button class="rbtn" id="btn-delete-row" title="Eliminar fila">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
+        <span class="label">- Fila</span>
+      </button>
+    </div>
+
+    <div class="ribbon-sep"></div>
+
+    <!-- Tools -->
+    <div class="ribbon-group">
+      <button class="rbtn" id="btn-spell" title="Corrector ortográfico (F7)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/><circle cx="18" cy="18" r="3"/><path d="M21 21l-1.5-1.5"/></svg>
+        <span class="label">Ortografía</span>
+      </button>
+      <button class="rbtn" id="btn-find" title="Buscar y reemplazar (Ctrl+H)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <span class="label">Buscar</span>
+      </button>
+      <button class="rbtn" id="btn-freeze" title="Congelar fila/columna">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M2 12h20M4.93 4.93l14.14 14.14M19.07 4.93L4.93 19.07"/></svg>
+        <span class="label">Congelar</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- FORMULA BAR -->
+  <div id="formulabar">
+    <input type="text" id="cell-ref" value="A1" spellcheck="false">
+    <div class="formula-sep"></div>
+    <span id="fx-label">ƒx</span>
+    <div class="formula-sep"></div>
+    <input type="text" id="formula-input" placeholder="Ingrese valor o fórmula (=SUM, =AVG, ...)" spellcheck="false">
+  </div>
+
+  <!-- MAIN AREA -->
+  <div id="main-area">
+    <div id="sheet-container">
+      <table id="spreadsheet"><thead></thead><tbody></tbody></table>
+    </div>
+  </div>
+
+  <!-- SHEET TABS -->
+  <div id="sheetbar">
+    <div class="sheet-tab active" data-sheet="0">
+      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
+      Hoja1
+      <button class="close-tab">×</button>
+    </div>
+    <button class="add-sheet-btn" id="add-sheet">+</button>
+  </div>
+
+  <!-- STATUS BAR -->
+  <div id="statusbar">
+    <div class="stat">Celda: <span id="st-cell">A1</span></div>
+    <div class="stat">Rango: <span id="st-range">—</span></div>
+    <div class="spacer"></div>
+    <span class="status-sum" id="st-sum" title="Suma">Σ —</span>
+    <span class="status-avg" id="st-avg" title="Promedio">x̄ —</span>
+    <span class="status-count" id="st-count" title="Conteo"># —</span>
+    <div class="stat">Celdas: <span id="st-total">50×26</span></div>
+  </div>
+</div>
+
+<!-- CELL EDITOR (floating input) -->
+<textarea id="cell-editor" rows="1" spellcheck="false"></textarea>
+
+<!-- FILL HANDLE -->
+<div id="fill-handle"></div>
+
+<!-- SELECTION BOX -->
+<div id="selection-box"></div>
+
+<!-- CONTEXT MENU -->
+<div id="context-menu">
+  <div class="ctx-item" id="ctx-cut"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="20" r="2"/><circle cx="18" cy="20" r="2"/><path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg>Cortar<span class="shortcut">Ctrl+X</span></div>
+  <div class="ctx-item" id="ctx-copy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Copiar<span class="shortcut">Ctrl+C</span></div>
+  <div class="ctx-item" id="ctx-paste"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>Pegar<span class="shortcut">Ctrl+V</span></div>
+  <div class="ctx-sep"></div>
+  <div class="ctx-item" id="ctx-bold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 4h8a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z"/><path d="M6 12h9a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z"/></svg>Negrita</div>
+  <div class="ctx-item" id="ctx-clear"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>Borrar contenido<span class="shortcut">Del</span></div>
+  <div class="ctx-sep"></div>
+  <div class="ctx-item" id="ctx-ins-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="12" y1="8" x2="12" y2="16"/></svg>Insertar fila</div>
+  <div class="ctx-item" id="ctx-ins-col"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="12" y1="3" x2="12" y2="21"/><line x1="8" y1="12" x2="16" y2="12"/></svg>Insertar columna</div>
+  <div class="ctx-sep"></div>
+  <div class="ctx-item danger" id="ctx-del-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>Eliminar fila</div>
+</div>
+
+<!-- SPELL CHECK PANEL -->
+<div id="spell-panel">
+  <div class="spell-header">
+    <span class="spell-icon">📝</span>
+    <h3>Corrector Ortográfico</h3>
+    <button class="spell-close" id="spell-close">×</button>
+  </div>
+  <div class="spell-body" id="spell-body">
+    <div class="spell-word" id="spell-word"></div>
+    <div class="spell-sug-label">Sugerencias</div>
+    <div class="spell-suggestions" id="spell-suggestions"></div>
+    <div class="spell-actions">
+      <button class="spell-btn skip" id="spell-skip">Omitir</button>
+      <button class="spell-btn skip" id="spell-skip-all">Omitir todo</button>
+      <button class="spell-btn fix" id="spell-fix">Corregir</button>
+    </div>
+    <div class="spell-progress" id="spell-progress"></div>
+  </div>
+</div>
+
+<!-- FIND/REPLACE BAR -->
+<div id="find-bar">
+  <div style="display:flex;align-items:center;margin-bottom:10px;">
+    <strong style="font-size:13px;font-family:var(--font-heading);">Buscar y Reemplazar</strong>
+    <button class="find-close" id="find-close">×</button>
+  </div>
+  <div class="find-row">
+    <label>Buscar</label>
+    <input type="text" id="find-input" placeholder="Texto a buscar...">
+  </div>
+  <div class="find-row">
+    <label>Reemplazar</label>
+    <input type="text" id="replace-input" placeholder="Reemplazar con...">
+  </div>
+  <div class="find-actions">
+    <button class="find-btn" id="find-prev">◀ Anterior</button>
+    <button class="find-btn" id="find-next">Siguiente ▶</button>
+    <button class="find-btn primary" id="replace-one">Reemplazar</button>
+    <button class="find-btn primary" id="replace-all">Reemplazar todo</button>
+  </div>
+  <div id="find-status" style="font-size:11px;color:var(--text-muted);margin-top:6px;font-family:var(--font-mono);"></div>
+</div>
+
+<!-- COLOR PICKERS -->
+<div class="color-picker-popup" id="text-color-picker">
+  <div class="color-grid" id="text-color-grid"></div>
+  <div class="cp-custom">
+    <input type="color" id="text-color-custom" value="#e8e8f0">
+    <span>Color personalizado</span>
+  </div>
+</div>
+<div class="color-picker-popup" id="bg-color-picker">
+  <div class="color-grid" id="bg-color-grid"></div>
+  <div class="cp-custom">
+    <input type="color" id="bg-color-custom" value="#252533">
+    <span>Color personalizado</span>
+  </div>
+</div>
+
+<!-- TOOLTIP -->
+<div class="tooltip" id="tooltip"></div>
+
+<!-- TOAST -->
+<div id="toast"></div>
+
+<script src="js/script.js"></script>
+</body>
+</html>
