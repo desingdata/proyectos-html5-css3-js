@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Semantica HTML5</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=IBM+Plex+Mono:wght@400;600&family=Source+Serif+4:ital,wght@0,300;0,400;1,300&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="https://desingdata.github.io/desingdata/img/DesingData_favicon-96x96.png" sizes="96x96" type="image/png">
+</head>
+<body>
+  <!-- ══════════════════════════════════════════════════════
+     <header>: Cabecera principal del sitio web.
+     Contiene el título del proyecto y la descripción.
+══════════════════════════════════════════════════════ -->
+  <header class="site-header">
+       <!-- <h1>: Título principal del documento (solo uno por página).
+       Define el tema más importante y es clave para el SEO. -->
+        <h1>Semántica en HTML5</h1>
+    <hr class="header-rule" />
+    <p style="color:rgba(245,240,232,0.7); font-size:0.92rem; max-width:600px;">
+      La semántica es una forma de dotar información y significado en la estructura del documento HTML, sin siquiera
+      utilizar contenido o datos.
+      Un buen marcado HTML debe tener semántica.
+    </p>
+  </header>
+  <!-- ══════════════════════════════════════════════════════
+     <nav>: Navegación principal del sitio.
+     Agrupa los enlaces a las secciones clave del documento.
+══════════════════════════════════════════════════════ -->
+  <nav class="site-nav" aria-label="Navegación principal">
+    <span>Ir a →</span>
+    <a href="#etiquetas-seccion">Sección</a>
+    <a href="#etiquetas-texto">Texto</a>
+    <a href="#etiquetas-tablas">Tablas</a>
+    <a href="#footer-demo">Footer</a>
+  </nav>
+  <!-- ══════════════════════════════════════════════════════
+     <search>: Envuelve formularios o controles de búsqueda.
+     Nuevo elemento semántico de HTML5 (añadido en 2023).
+══════════════════════════════════════════════════════ -->
+<search aria-label="Buscar etiquetas">
+  <div class="search-bar">
+      <label for="buscador">🔍 Buscar etiqueta:</label>
+      <input type="search" id="buscador" placeholder="ej. article, table, abbr..." autocomplete="off" />
+      <button type="button" id="btn-buscar">Buscar</button>
+      <div id="search-controls" style="display:none; align-items:center; gap:0.4rem;">
+        <button type="button" id="btn-match-prev" title="Resultado anterior">◀</button>
+        <span id="search-counter"
+          style="font-family:'IBM Plex Mono',monospace;font-size:0.72rem;color:var(--gold);white-space:nowrap;"></span>
+        <button type="button" id="btn-match-next" title="Resultado siguiente">▶</button>
+        <button type="button" id="btn-clear-search" title="Limpiar búsqueda">✕</button>
+      </div>
+    </div>
+</search>
+<main class="container">
+     <!-- ══════════════════════════════════════════════════
+       SECCIÓN 1 — ETIQUETAS SEMÁNTICAS DE SECCIÓN
+  ══════════════════════════════════════════════════ -->
+    <!-- <section>: Agrupa contenido temáticamente relacionado.
+       Debe contener un encabezado (<h2>-<h6>) propio. -->
+    <section id="etiquetas-seccion" class="section-block">
+        <!-- <h2>: Encabezado de segundo nivel; subtítulo de sección. -->
+      <h2 class="section-title">① Etiquetas Semánticas de Sección</h2>
+
+      <!-- ──────────────────────────────────────────────
+         <article>: Contenido autónomo y redistribuible.
+         Ideal para: posts, noticias, tarjetas de producto.
+    ────────────────────────────────────────────── -->
+      <article class="article-card" id="art-article">
+        <header class="article-header">
+          <span class="tag-label">&lt;article&gt;</span>
+          <!-- <h3>: Encabezado de tercer nivel, dentro del artículo -->
+          <h3 style="font-family:'Playfair Display',serif; font-size:1.15rem;">
+            La etiqueta <code class="tag">&lt;article&gt;</code>
+          </h3>
+        </header>
+        <div class="article-body">
+          <div class="definition-box">
+            <strong>Definición:</strong> Representa contenido independiente y auto-contenido
+            que podría distribuirse de forma aislada (post de blog, noticia, comentario, widget).
+          </div>
+          <div class="code-block"><span class="cm">&lt;!-- article: bloque independiente de contenido --&gt;</span>
+            <span class="tg">&lt;article&gt;</span>
+            <span class="tg">&lt;h2&gt;</span><span class="tx">Título del artículo</span><span
+              class="tg">&lt;/h2&gt;</span>
+            <span class="tg">&lt;p&gt;</span><span class="tx">Contenido auto-suficiente...</span><span
+              class="tg">&lt;/p&gt;</span>
+            <span class="tg">&lt;/article&gt;</span>
+          </div>
+          <p>Este mismo recuadro es un <code class="tag">&lt;article&gt;</code> real en el código fuente de esta página.
+          </p>
+        </div>
+      </article>
+
+      <!-- ──────────────────────────────────────────────
+         <nav>: Navegación principal o secundaria del documento.
+    ────────────────────────────────────────────── -->
+      <article class="article-card" id="art-nav">
+        <header class="article-header">
+          <span class="tag-label">&lt;nav&gt;</span>
+          <h3 style="font-family:'Playfair Display',serif; font-size:1.15rem;">
+            La etiqueta <code class="tag">&lt;nav&gt;</code>
+          </h3>
+        </header>
+        <div class="article-body">
+          <div class="definition-box">
+            <strong>Definición:</strong> Agrupa un conjunto de enlaces de navegación principales.
+            Los lectores de pantalla usan este elemento para saltar bloques de navegación.
+          </div>
+          <div class="code-block"><span class="cm">&lt;!-- nav: enlaces de navegación principal --&gt;</span>
+            <span class="tg">&lt;nav</span> <span class="at">aria-label</span>=<span class="vl">"Menú
+              principal"</span><span class="tg">&gt;</span>
+            <span class="tg">&lt;a</span> <span class="at">href</span>=<span class="vl">"/"</span><span
+              class="tg">&gt;</span><span class="tx">Inicio</span><span class="tg">&lt;/a&gt;</span>
+            <span class="tg">&lt;a</span> <span class="at">href</span>=<span class="vl">"/blog"</span><span
+              class="tg">&gt;</span><span class="tx">Blog</span><span class="tg">&lt;/a&gt;</span>
+            <span class="tg">&lt;/nav&gt;</span>
+          </div>
+        </div>
+      </article>
+      <!-- ──────────────────────────────────────────────
+         <header> y <footer>: Cabecera y pie de sección/página
+    ────────────────────────────────────────────── -->
+      <article class="article-card" id="art-header-footer">
+        <header class="article-header">
+          <span class="tag-label">&lt;header&gt; &amp; &lt;footer&gt;</span>
+          <h3 style="font-family:'Playfair Display',serif; font-size:1.15rem;">
+            Las etiquetas <code class="tag">&lt;header&gt;</code> y <code class="tag">&lt;footer&gt;</code>
+          </h3>
+        </header>
+        <div class="article-body">
+          <div class="grid-2">
+            <div>
+              <div class="definition-box">
+                <strong>&lt;header&gt;:</strong> Cabecera de la página o de un
+                <code class="tag">&lt;article&gt;</code>/<code class="tag">&lt;section&gt;</code>.
+                Contiene títulos, logo, navegación o metadatos.
+              </div>
+            </div>
+            <div>
+              <div class="definition-box">
+                <strong>&lt;footer&gt;:</strong> Pie de página o sección. Suele incluir
+                derechos de autor, créditos, enlaces legales y datos de contacto.
+              </div>
+            </div>
+          </div>
+          <div class="code-block"><span class="cm">&lt;!-- header: cabecera de article o de toda la página --&gt;</span>
+            <span class="tg">&lt;article&gt;</span>
+            <span class="tg">&lt;header&gt;</span>
+            <span class="tg">&lt;h2&gt;</span><span class="tx">Post de Blog</span><span class="tg">&lt;/h2&gt;</span>
+            <span class="tg">&lt;p&gt;</span><span class="tx">Publicado: 23 Feb 2025</span><span
+              class="tg">&lt;/p&gt;</span>
+            <span class="tg">&lt;/header&gt;</span>
+            <span class="tg">&lt;p&gt;</span><span class="tx">Contenido del post...</span><span
+              class="tg">&lt;/p&gt;</span>
+            <span class="cm">&lt;!-- footer: pie del article --&gt;</span>
+            <span class="tg">&lt;footer&gt;</span>
+            <span class="tg">&lt;p&gt;</span><span class="tx">Etiquetas: HTML5, Web</span><span
+              class="tg">&lt;/p&gt;</span>
+            <span class="tg">&lt;/footer&gt;</span>
+            <span class="tg">&lt;/article&gt;</span>
+          </div>
+        </div>
+      </article>
+      <!-- ──────────────────────────────────────────────
+         <h1>...<h6>: Jerarquía de encabezados
+    ────────────────────────────────────────────── -->
+      <article class="article-card" id="art-headings">
+        <header class="article-header">
+          <span class="tag-label">&lt;h1&gt;...&lt;h6&gt;</span>
+          <h3 style="font-family:'Playfair Display',serif; font-size:1.15rem;">
+            Las etiquetas <code class="tag">&lt;h1&gt;</code> … <code class="tag">&lt;h6&gt;</code>
+          </h3>
+        </header>
+        <div class="article-body">
+          <div class="definition-box">
+            <strong>Definición:</strong> Establecen la jerarquía del contenido.
+            <code class="tag">&lt;h1&gt;</code> es el título más importante (uno por página);
+            <code class="tag">&lt;h6&gt;</code> el de menor rango. Esenciales para SEO y accesibilidad.
+          </div>
+          <div class="demo-area">
+            <p class="demo-label">Demo visual</p>
+            <h1 style="font-family:'Playfair Display',serif;font-size:1.6rem;line-height:1.2;">H1 — Título de Página
+            </h1>
+            <h2 style="font-family:'Playfair Display',serif;font-size:1.3rem;">H2 — Sección Principal</h2>
+            <h3 style="font-family:'Playfair Display',serif;font-size:1.1rem;">H3 — Sub-sección</h3>
+            <h4 style="font-family:'IBM Plex Mono',monospace;font-size:0.95rem;">H4 — Sub-sub-sección</h4>
+            <h5 style="font-family:'IBM Plex Mono',monospace;font-size:0.85rem;color:var(--muted);">H5 — Nivel 5</h5>
+            <h6 style="font-family:'IBM Plex Mono',monospace;font-size:0.78rem;color:var(--muted);">H6 — Nivel más
+              profundo</h6>
+          </div>
+        </div>
+      </article>
+      <!-- ──────────────────────────────────────────────
+         <search>: Envuelve controles de búsqueda
+    ────────────────────────────────────────────── -->
+      <article class="article-card" id="art-search">
+        <header class="article-header">
+          <span class="tag-label">&lt;search&gt;</span>
+          <h3 style="font-family:'Playfair Display',serif; font-size:1.15rem;">
+            La etiqueta <code class="tag">&lt;search&gt;</code>
+          </h3>
+        </header>
+        <div class="article-body">
+          <div class="definition-box">
+            <strong>Definición:</strong> Nuevo elemento semántico (HTML 2023) que encapsula
+            formularios o controles de búsqueda/filtrado. Reemplaza el rol <em>search</em>
+            aplicado a <code class="tag">&lt;div&gt;</code> o <code class="tag">&lt;form&gt;</code>.
+          </div>
+          <div class="code-block"><span class="cm">&lt;!-- search: semántica para barras de búsqueda --&gt;</span>
+            <span class="tg">&lt;search</span> <span class="at">aria-label</span>=<span class="vl">"Buscar en el
+              sitio"</span><span class="tg">&gt;</span>
+            <span class="tg">&lt;form</span> <span class="at">action</span>=<span class="vl">"/resultados"</span><span
+              class="tg">&gt;</span>
+            <span class="tg">&lt;input</span> <span class="at">type</span>=<span class="vl">"search"</span> <span
+              class="at">name</span>=<span class="vl">"q"</span><span class="tg">&gt;</span>
+            <span class="tg">&lt;button&gt;</span><span class="tx">Buscar</span><span class="tg">&lt;/button&gt;</span>
+            <span class="tg">&lt;/form&gt;</span>
+            <span class="tg">&lt;/search&gt;</span>
+          </div>
+          <p>La barra de búsqueda en la parte superior de esta página está envuelta en
+            <code class="tag">&lt;search&gt;</code>.
+          </p>
+        </div>
+      </article>
+      <!-- ──────────────────────────────────────────────
+         <section>: Agrupación temática de contenido
+    ────────────────────────────────────────────── -->
+      <article class="article-card" id="art-section">
+        <header class="article-header">
+          <span class="tag-label">&lt;section&gt;</span>
+          <h3 style="font-family:'Playfair Display',serif; font-size:1.15rem;">
+            La etiqueta <code class="tag">&lt;section&gt;</code>
+          </h3>
+        </header>
+        <div class="article-body">
+          <div class="definition-box">
+            <strong>Definición:</strong> Agrupa contenido temáticamente relacionado con un
+            encabezado propio. No es autónomo como <code class="tag">&lt;article&gt;</code>;
+            forma parte de un todo mayor.
+          </div>
+          <div class="code-block"><span class="cm">&lt;!-- section: bloque temático dentro de la página --&gt;</span>
+            <span class="tg">&lt;section</span> <span class="at">id</span>=<span class="vl">"servicios"</span><span
+              class="tg">&gt;</span>
+            <span class="tg">&lt;h2&gt;</span><span class="tx">Nuestros Servicios</span><span
+              class="tg">&lt;/h2&gt;</span>
+            <span class="tg">&lt;article&gt;</span><span class="tx">Servicio 1...</span><span
+              class="tg">&lt;/article&gt;</span>
+            <span class="tg">&lt;article&gt;</span><span class="tx">Servicio 2...</span><span
+              class="tg">&lt;/article&gt;</span>
+            <span class="tg">&lt;/section&gt;</span>
+          </div>
+        </div>
+      </article>
+      <!-- ──────────────────────────────────────────────
+         <address>: Información de contacto
+    ────────────────────────────────────────────── -->
+      <article class="article-card" id="art-address">
+        <header class="article-header">
+          <span class="tag-label">&lt;address&gt;</span>
+          <h3 style="font-family:'Playfair Display',serif; font-size:1.15rem;">
+            La etiqueta <code class="tag">&lt;address&gt;</code>
+          </h3>
+        </header>
+        <div class="article-body">
+          <div class="definition-box">
+            <strong>Definición:</strong> Proporciona datos de contacto del autor o del propietario
+            del documento o sección más cercana. No es para cualquier dirección física;
+            está semánticamente ligado al contexto del <code class="tag">&lt;article&gt;</code>
+            o <code class="tag">&lt;body&gt;</code> que lo contiene.
+          </div>
+          <div class="demo-area">
+            <p class="demo-label">Demo — address en un article</p>
+            <!-- <address>: datos de contacto del autor del artículo -->
+            <address class="author-address">
+              <span>📧</span> <a href="/cdn-cgi/l/email-protection" class="__cf_email__"
+                data-cfemail="ff9c90918b9e9c8b90bf9a959a928f9390d19a9b8a">[email&#160;protected]</a><br />
+              <span>📍</span> Universidad Tecnológica, Calle 123, Bogotá, Colombia<br />
+              <span>🌐</span> <a href="#" style="color:var(--gold);">www.ejemplo.edu</a>
+            </address>
+          </div>
+        </div>
+      </article>
+    </section>
+     <!-- ══════════════════════════════════════════════════
+       SECCIÓN 2 — ETIQUETAS DE TEXTO SEMÁNTICO
+  ══════════════════════════════════════════════════ -->
+  <section id="etiquetas-texto" class="section-block">
+      <h2 class="section-title">② Etiquetas de Texto Semántico</h2>
+
+      <!-- <q> y <cite> -->
+      <article class="article-card">
+        <header class="article-header">
+          <span class="tag-label">&lt;q&gt; &amp; &lt;cite&gt;</span>
+          <h3 style="font-family:'Playfair Display',serif;font-size:1.15rem;">
+            Las etiquetas <code class="tag">&lt;q&gt;</code> y <code class="tag">&lt;cite&gt;</code>
+          </h3>
+        </header>
+        <div class="article-body">
+          <div class="grid-2">
+            <div class="definition-box">
+              <strong>&lt;q&gt;:</strong> Cita breve en línea. El navegador añade
+              automáticamente comillas tipográficas. Se diferencia de
+              <code class="tag">&lt;blockquote&gt;</code> por ser corta y en flujo de texto.
+            </div>
+            <div class="definition-box">
+              <strong>&lt;cite&gt;:</strong> Referencia al título de una obra creativa
+              (libro, película, canción, artículo). Se renderiza en itálica por defecto.
+            </div>
+          </div>
+          <div class="code-block"><span class="cm">&lt;!-- q: cita en línea; cite: nombre de la obra citada
+              --&gt;</span>
+            <span class="tg">&lt;p&gt;</span><span class="tx">Como dijo Turing: </span>
+            <span class="tg">&lt;q</span> <span class="at">cite</span>=<span class="vl">"https://fuente.com"</span><span
+              class="tg">&gt;</span><span class="tx">Las máquinas pueden pensar</span><span class="tg">&lt;/q&gt;</span>
+            <span class="tx">en su artículo </span><span class="tg">&lt;cite&gt;</span><span class="tx">Computing
+              Machinery and Intelligence</span><span class="tg">&lt;/cite&gt;.</span>
+            <span class="tg">&lt;/p&gt;</span>
+          </div>
+          <div class="demo-area demo-q">
+            <p class="demo-label">Demo visual</p>
+            <p>Como escribió Turing:
+              <!-- <q>: cita corta en línea con comillas automáticas -->
+              <q cite="https://ejemplo.com">Las máquinas pueden pensar</q>
+              — publicado en <cite>Computing Machinery and Intelligence</cite>.
+            </p>
+          </div>
+        </div>
+      </article>
+      <!-- <sup> y <sub> -->
+      <article class="article-card">
+        <header class="article-header">
+          <span class="tag-label">&lt;sup&gt; &amp; &lt;sub&gt;</span>
+          <h3 style="font-family:'Playfair Display',serif;font-size:1.15rem;">
+            Las etiquetas <code class="tag">&lt;sup&gt;</code> y <code class="tag">&lt;sub&gt;</code>
+          </h3>
+        </header>
+        <div class="article-body">
+          <div class="grid-2">
+            <div class="definition-box">
+              <strong>&lt;sup&gt;:</strong> Superíndice tipográfico. Usado para exponentes
+              matemáticos, notas al pie numeradas y marcas registradas (x², N.º<sup>1</sup>).
+            </div>
+            <div class="definition-box">
+              <strong>&lt;sub&gt;:</strong> Subíndice tipográfico. Habitual en fórmulas
+              químicas (H<sub>2</sub>O) y notación matemática logarítmica.
+            </div>
+          </div>
+          <div class="code-block"><span class="cm">&lt;!-- sup: superíndice | sub: subíndice --&gt;</span>
+            <span class="tg">&lt;p&gt;</span><span class="tx">Pitágoras: a</span><span
+              class="tg">&lt;sup&gt;</span><span class="tx">2</span><span class="tg">&lt;/sup&gt;</span><span
+              class="tx"> + b</span><span class="tg">&lt;sup&gt;</span><span class="tx">2</span><span
+              class="tg">&lt;/sup&gt;</span><span class="tx"> = c</span><span class="tg">&lt;sup&gt;</span><span
+              class="tx">2</span><span class="tg">&lt;/sup&gt;&lt;/p&gt;</span>
+            <span class="tg">&lt;p&gt;</span><span class="tx">Agua: H</span><span class="tg">&lt;sub&gt;</span><span
+              class="tx">2</span><span class="tg">&lt;/sub&gt;</span><span class="tx">O</span><span
+              class="tg">&lt;/p&gt;</span>
+          </div>
+          <div class="demo-area demo-sup">
+            <p class="demo-label">Demo visual</p>
+            <p>Teorema de Pitágoras: a<sup>2</sup> + b<sup>2</sup> = c<sup>2</sup></p>
+            <p>Ácido sulfúrico: H<sub>2</sub>SO<sub>4</sub> · CO<sub>2</sub> · H<sub>2</sub>O</p>
+          </div>
+        </div>
+      </article>
+      <!-- <small>, <abbr>, <dfn>, <ins>, <del> -->
+      <article class="article-card">
+        <header class="article-header">
+          <span class="tag-label">&lt;small&gt; · &lt;abbr&gt; · &lt;dfn&gt; · &lt;ins&gt; · &lt;del&gt;</span>
+          <h3 style="font-family:'Playfair Display',serif;font-size:1.15rem;">
+            Texto fino, abreviaturas y cambios
+          </h3>
+        </header>
+        <div class="article-body">
+          <div class="grid-2">
+            <div class="definition-box">
+              <strong>&lt;small&gt;:</strong> Letra pequeña para avisos legales,
+              aclaraciones o texto de menor importancia semántica. No solo reduce el tamaño;
+              indica contenido secundario.
+            </div>
+            <div class="definition-box">
+              <strong>&lt;abbr&gt;:</strong> Abreviatura o acrónimo. El atributo
+              <code class="tag">title</code> revela su expansión al pasar el cursor.
+              <br /><strong>&lt;dfn&gt;:</strong> Marca la primera definición de un término
+              en el texto.
+            </div>
+            <div class="definition-box">
+              <strong>&lt;ins&gt;:</strong> Texto insertado/añadido posteriormente
+              (subrayado verde). Se usa con <code class="tag">datetime</code> para indicar cuándo.
+            </div>
+            <div class="definition-box">
+              <strong>&lt;del&gt;:</strong> Texto eliminado/tachado del documento original.
+              Útil para control de cambios, precios anteriores, correcciones visibles.
+            </div>
+          </div>
+
+          <div class="code-block"><span class="cm">&lt;!-- small: texto de menor importancia semántica --&gt;</span>
+            <span class="tg">&lt;small&gt;</span><span class="tx">*Aplican términos y condiciones.</span><span
+              class="tg">&lt;/small&gt;</span>
+
+            <span class="cm">&lt;!-- abbr: abreviatura con su expansión en title --&gt;</span>
+            <span class="tg">&lt;abbr</span> <span class="at">title</span>=<span class="vl">"HyperText Markup
+              Language"</span><span class="tg">&gt;</span><span class="tx">HTML</span><span
+              class="tg">&lt;/abbr&gt;</span>
+
+            <span class="cm">&lt;!-- dfn: término siendo definido por primera vez --&gt;</span>
+            <span class="tg">&lt;p&gt;&lt;dfn&gt;</span><span class="tx">Semántica</span><span
+              class="tg">&lt;/dfn&gt;</span><span class="tx"> es el estudio del significado.</span><span
+              class="tg">&lt;/p&gt;</span>
+
+            <span class="cm">&lt;!-- ins: contenido insertado | del: contenido eliminado --&gt;</span>
+            <span class="tg">&lt;p&gt;</span><span class="tx">Precio: </span><span class="tg">&lt;del&gt;</span><span
+              class="tx">$50.000</span><span class="tg">&lt;/del&gt;</span><span class="tx"> </span>
+            <span class="tg">&lt;ins&gt;</span><span class="tx">$35.000</span><span
+              class="tg">&lt;/ins&gt;&lt;/p&gt;</span>
+          </div>
+
+          <div class="demo-area">
+            <p class="demo-label">Demo visual</p>
+            <!-- <small>: aclaración legal de menor importancia -->
+            <small>* Precios expresados en pesos colombianos.</small><br /><br />
+            <!-- <abbr>: abreviatura con tooltip -->
+            <p>El lenguaje <abbr title="HyperText Markup Language">HTML</abbr>
+              junto con <abbr title="Cascading Style Sheets">CSS</abbr>
+              y <abbr title="JavaScript">JS</abbr> forman el trío del frontend.</p>
+            <!-- <dfn>: primera definición del término -->
+            <p><dfn>Semántica</dfn> es la ciencia que estudia el significado de
+              los signos lingüísticos.</p>
+            <!-- <del> texto eliminado, <ins> texto insertado -->
+            <p>El curso cuesta <del datetime="2024-01-01">$80.000</del>
+              <ins datetime="2025-01-01">$55.000</ins> COP por módulo.
+            </p>
+          </div>
+        </div>
+      </article>
+  </section>
+  <!-- ══════════════════════════════════════════════════
+       SECCIÓN 3 — ETIQUETAS DE TABLAS
+  ══════════════════════════════════════════════════ -->
+  <section id="etiquetas-tablas" class="section-block">
+        <h2 class="section-title">③ Etiquetas de Tablas</h2>
+
+        <!-- Tabla básica -->
+      <article class="article-card">
+        <header class="article-header">
+          <span class="tag-label">&lt;table&gt;</span>
+          <h3 style="font-family:'Playfair Display',serif;font-size:1.15rem;">
+            La etiqueta <code class="tag">&lt;table&gt;</code> — Tabla básica
+          </h3>
+        </header>
+        <div class="article-body">
+          <div class="definition-box">
+            <strong>Definición:</strong> Representa datos tabulares organizados en filas
+            (<code class="tag">&lt;tr&gt;</code>) y celdas de datos (<code class="tag">&lt;td&gt;</code>)
+            o encabezado (<code class="tag">&lt;th&gt;</code>). Solo para datos relacionales,
+            nunca para maquetación visual.
+          </div>
+          <div class="code-block"><span class="cm">&lt;!-- table: contenedor de datos tabulares --&gt;</span>
+            <span class="tg">&lt;table&gt;</span>
+            <span class="cm">&lt;!-- caption: título descriptivo de la tabla --&gt;</span>
+            <span class="tg">&lt;caption&gt;</span><span class="tx">Etiquetas Semánticas</span><span
+              class="tg">&lt;/caption&gt;</span>
+            <span class="tg">&lt;tr&gt;</span>
+            <span class="cm">&lt;!-- th: celda de encabezado (negrita + centrada por defecto) --&gt;</span>
+            <span class="tg">&lt;th&gt;</span><span class="tx">Etiqueta</span><span class="tg">&lt;/th&gt;</span>
+            <span class="tg">&lt;th&gt;</span><span class="tx">Uso</span><span class="tg">&lt;/th&gt;</span>
+            <span class="tg">&lt;/tr&gt;</span>
+            <span class="tg">&lt;tr&gt;</span>
+            <span class="cm">&lt;!-- td: celda de datos --&gt;</span>
+            <span class="tg">&lt;td&gt;</span><span class="tx">article</span><span
+              class="tg">&lt;/td&gt;&lt;td&gt;</span><span class="tx">Contenido independiente</span><span
+              class="tg">&lt;/td&gt;</span>
+            <span class="tg">&lt;/tr&gt;</span>
+            <span class="tg">&lt;/table&gt;</span>
+          </div>
+
+          <div class="demo-area">
+            <p class="demo-label">Demo — Tabla básica</p>
+            <!-- <table>: datos tabulares de etiquetas HTML semánticas -->
+            <table class="styled-table">
+              <caption>Resumen de Etiquetas Semánticas</caption>
+              <thead>
+                <!-- <thead>: encabezado de la tabla -->
+                <tr>
+                  <th>Etiqueta</th>
+                  <th>Categoría</th>
+                  <th>Función principal</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- <tbody>: cuerpo de datos de la tabla -->
+                <tr>
+                  <td><code class="tag">&lt;article&gt;</code></td>
+                  <td>Sección</td>
+                  <td>Contenido autónomo</td>
+                </tr>
+                <tr>
+                  <td><code class="tag">&lt;nav&gt;</code></td>
+                  <td>Sección</td>
+                  <td>Navegación principal</td>
+                </tr>
+                <tr>
+                  <td><code class="tag">&lt;section&gt;</code></td>
+                  <td>Sección</td>
+                  <td>Bloque temático</td>
+                </tr>
+                <tr>
+                  <td><code class="tag">&lt;abbr&gt;</code></td>
+                  <td>Texto</td>
+                  <td>Abreviatura con tooltip</td>
+                </tr>
+                <tr>
+                  <td><code class="tag">&lt;ins&gt;</code></td>
+                  <td>Texto</td>
+                  <td>Texto insertado</td>
+                </tr>
+              </tbody>
+              <!-- <tfoot>: pie de tabla con totales o resúmenes -->
+              <tfoot>
+                <tr>
+                  <td colspan="2">Total de etiquetas en este proyecto:</td>
+                  <td>20+</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+      </article>
+      <!-- Tablas con celdas irregulares -->
+      <article class="article-card">
+        <header class="article-header">
+          <span class="tag-label">colspan &amp; rowspan</span>
+          <h3 style="font-family:'Playfair Display',serif;font-size:1.15rem;">
+            Tablas con celdas irregulares
+          </h3>
+        </header>
+        <div class="article-body">
+          <div class="definition-box">
+            <strong>colspan:</strong> Hace que una celda se extienda horizontalmente
+            ocupando múltiples columnas.<br />
+            <strong>rowspan:</strong> Hace que una celda se extienda verticalmente
+            ocupando múltiples filas. Ambos atributos permiten diseñar tablas de datos complejas.
+          </div>
+          <div class="code-block"><span class="cm">&lt;!-- colspan: celda que abarca varias columnas --&gt;</span>
+            <span class="tg">&lt;td</span> <span class="at">colspan</span>=<span class="vl">"2"</span><span
+              class="tg">&gt;</span><span class="tx">Abarca 2 columnas</span><span class="tg">&lt;/td&gt;</span>
+
+            <span class="cm">&lt;!-- rowspan: celda que abarca varias filas --&gt;</span>
+            <span class="tg">&lt;td</span> <span class="at">rowspan</span>=<span class="vl">"3"</span><span
+              class="tg">&gt;</span><span class="tx">Abarca 3 filas</span><span class="tg">&lt;/td&gt;</span>
+          </div>
+
+          <div class="demo-area">
+            <p class="demo-label">Demo — Celdas irregulares (colspan + rowspan)</p>
+            <table class="styled-table">
+              <caption>Horario Académico Semanal</caption>
+              <thead>
+                <tr>
+                  <th>Hora</th>
+                  <th>Lunes</th>
+                  <th>Martes</th>
+                  <th>Miércoles</th>
+                  <th>Jueves</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>7:00</strong></td>
+                  <!-- rowspan="2": esta celda ocupa 7:00 y 8:00 en Lunes -->
+                  <td rowspan="2" style="background:#fef3cd; text-align:center; vertical-align:middle;">
+                    HTML5<br /><small>(2h)</small>
+                  </td>
+                  <td>CSS</td>
+                  <!-- colspan="2": abarca Miércoles y Jueves -->
+                  <td colspan="2" style="background:#d4edda; text-align:center;">
+                    Proyecto Integrador
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>8:00</strong></td>
+                  <td>JavaScript</td>
+                  <td>Accesibilidad</td>
+                  <td>SEO</td>
+                </tr>
+                <tr>
+                  <td><strong>9:00</strong></td>
+                  <!-- colspan="4": abarca todas las columnas de materias -->
+                  <td colspan="4" style="background:#f8d7da; text-align:center; color:#721c24;">
+                    🔴 Receso — 30 minutos
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </article>
+      <!-- Organización de tablas HTML -->
+      <article class="article-card">
+        <header class="article-header">
+          <span class="tag-label">&lt;thead&gt; · &lt;tbody&gt; · &lt;tfoot&gt;</span>
+          <h3 style="font-family:'Playfair Display',serif;font-size:1.15rem;">
+            Organización semántica de tablas
+          </h3>
+        </header>
+        <div class="article-body">
+          <div class="grid-2">
+            <div class="definition-box">
+              <strong>&lt;thead&gt;:</strong> Agrupa las filas de encabezado de la tabla.
+              Al imprimir, el navegador puede repetir este bloque en cada página.
+            </div>
+            <div class="definition-box">
+              <strong>&lt;tbody&gt;:</strong> Agrupa las filas de datos principales.
+              Pueden existir múltiples <code class="tag">&lt;tbody&gt;</code> para separar grupos de datos.
+            </div>
+          </div>
+          <div class="definition-box mt">
+            <strong>&lt;tfoot&gt;:</strong> Agrupa las filas del pie: totales, sumas o notas.
+            Semánticamente indica que son datos de resumen o cierre de la tabla.
+          </div>
+          <div class="code-block"><span class="cm">&lt;!-- Organización semántica de una tabla completa --&gt;</span>
+            <span class="tg">&lt;table&gt;</span>
+            <span class="tg">&lt;caption&gt;</span><span class="tx">Ventas Mensuales</span><span
+              class="tg">&lt;/caption&gt;</span>
+            <span class="cm">&lt;!-- thead: fila(s) de encabezado --&gt;</span>
+            <span class="tg">&lt;thead&gt;</span>
+            <span class="tg">&lt;tr&gt;&lt;th&gt;</span><span class="tx">Mes</span><span
+              class="tg">&lt;/th&gt;&lt;th&gt;</span><span class="tx">Ventas</span><span
+              class="tg">&lt;/th&gt;&lt;/tr&gt;</span>
+            <span class="tg">&lt;/thead&gt;</span>
+            <span class="cm">&lt;!-- tbody: datos principales --&gt;</span>
+            <span class="tg">&lt;tbody&gt;</span>
+            <span class="tg">&lt;tr&gt;&lt;td&gt;</span><span class="tx">Enero</span><span
+              class="tg">&lt;/td&gt;&lt;td&gt;</span><span class="tx">$1.200</span><span
+              class="tg">&lt;/td&gt;&lt;/tr&gt;</span>
+            <span class="tg">&lt;/tbody&gt;</span>
+            <span class="cm">&lt;!-- tfoot: totales o resumen --&gt;</span>
+            <span class="tg">&lt;tfoot&gt;</span>
+            <span class="tg">&lt;tr&gt;&lt;td&gt;</span><span class="tx">Total</span><span
+              class="tg">&lt;/td&gt;&lt;td&gt;</span><span class="tx">$1.200</span><span
+              class="tg">&lt;/td&gt;&lt;/tr&gt;</span>
+            <span class="tg">&lt;/tfoot&gt;</span>
+            <span class="tg">&lt;/table&gt;</span>
+          </div>
+        </div>
+      </article>
+      <!-- Columnas en tablas HTML -->
+      <article class="article-card">
+        <header class="article-header">
+          <span class="tag-label">&lt;colgroup&gt; · &lt;col&gt;</span>
+          <h3 style="font-family:'Playfair Display',serif;font-size:1.15rem;">
+            Columnas en tablas — <code class="tag">&lt;colgroup&gt;</code> y <code class="tag">&lt;col&gt;</code>
+          </h3>
+        </header>
+        <div class="article-body">
+          <div class="definition-box">
+            <strong>&lt;colgroup&gt;:</strong> Agrupa una o varias columnas para aplicarles
+            estilos o atributos de forma conjunta sin repetir código en cada celda.<br />
+            <strong>&lt;col&gt;:</strong> Define una columna individual dentro de
+            <code class="tag">&lt;colgroup&gt;</code>. Con <code class="tag">span</code>
+            puede cubrir múltiples columnas.
+          </div>
+          <div class="code-block"><span class="cm">&lt;!-- colgroup + col: estilos aplicados a columnas enteras
+              --&gt;</span>
+            <span class="tg">&lt;table&gt;</span>
+            <span class="tg">&lt;colgroup&gt;</span>
+            <span class="cm">&lt;!-- col: primera columna, sin estilo especial --&gt;</span>
+            <span class="tg">&lt;col&gt;</span>
+            <span class="cm">&lt;!-- col con class: resalta las siguientes 2 columnas --&gt;</span>
+            <span class="tg">&lt;col</span> <span class="at">span</span>=<span class="vl">"2"</span> <span
+              class="at">class</span>=<span class="vl">"highlight-col"</span><span class="tg">&gt;</span>
+            <span class="tg">&lt;col&gt;</span>
+            <span class="tg">&lt;/colgroup&gt;</span>
+            <span class="cm">&lt;!-- ... filas de la tabla ... --&gt;</span>
+            <span class="tg">&lt;/table&gt;</span>
+          </div>
+
+          <div class="demo-area">
+            <p class="demo-label">Demo — colgroup resaltando columnas de notas</p>
+            <table class="styled-table">
+              <caption>Notas Académicas por Período</caption>
+              <!-- <colgroup>: grupo de columnas para estilizar en bloque -->
+              <colgroup>
+                <!-- primera columna: estudiante -->
+                <col style="width:25%;" />
+                <!-- <col span="2">: columnas P1 y P2 resaltadas -->
+                <col span="2" class="highlight-col" />
+                <!-- última columna -->
+                <col style="width:25%;" />
+              </colgroup>
+              <thead>
+                <tr>
+                  <th>Estudiante</th>
+                  <th>Período 1</th>
+                  <th>Período 2</th>
+                  <th>Promedio</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Ana García</td>
+                  <td>4.5</td>
+                  <td>4.8</td>
+                  <td><strong>4.65</strong></td>
+                </tr>
+                <tr>
+                  <td>Luis Martínez</td>
+                  <td>3.9</td>
+                  <td>4.1</td>
+                  <td><strong>4.0</strong></td>
+                </tr>
+                <tr>
+                  <td>Sara López</td>
+                  <td>4.7</td>
+                  <td>4.6</td>
+                  <td><strong>4.65</strong></td>
+                </tr>
+                <tr>
+                  <td>Pedro Ruiz</td>
+                  <td>3.5</td>
+                  <td>3.8</td>
+                  <td><strong>3.65</strong></td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td>Promedio Grupo</td>
+                  <td>4.15</td>
+                  <td>4.33</td>
+                  <td><strong>4.24</strong></td>
+                </tr>
+              </tfoot>
+            </table>
+            <p style="margin-top:0.7rem;font-size:0.85rem;color:var(--muted);">
+              Las columnas P1 y P2 tienen fondo diferente gracias a
+              <code class="tag">&lt;col span="2" class="highlight-col"&gt;</code> en
+              el <code class="tag">&lt;colgroup&gt;</code>.
+            </p>
+          </div>
+        </div>
+      </article>
+  </section>
+</main>
+ <!-- ══════════════════════════════════════════════════
+     <footer> id="footer-demo": Pie de página del sitio.
+     Contiene créditos, autoría, derechos y enlace legal.
+══════════════════════════════════════════════════ -->
+  <footer id="footer-demo" class="site-footer">
+
+    <!-- <small>: aviso de derechos de menor importancia semántica -->
+    <small>
+      ·<a style="text-decoration: none; color: white;" href="https://desingdata.github.io/desingdata/" target="_blank">Desing Data</a> 2026 |
+    ·By <a style="text-decoration: none; color: white;" href="https://miguelmauricioriveralopez18686.github.io/mrlPortafolio/" target="_blank">
+      Miguel Mauricio Rivera López</a>.
+    </small>
+
+  </footer>
+  <!-- ══════════════════════════════════════════════════
+     SIDEBAR MENU — Barra lateral de navegación flotante
+     Generada dinámicamente por JavaScript.
+══════════════════════════════════════════════════ -->
+
+  <div id="sidebar-overlay" aria-hidden="true"></div>
+
+  <button id="menu-toggle" aria-label="Abrir menú de navegación" aria-expanded="false">
+    <span id="menu-toggle-label">Índice</span>
+  </button>
+
+  <aside id="sidebar-menu" aria-label="Menú de contenido" aria-hidden="true">
+    <div class="sidebar-header">
+      <h2>📋 Índice de Contenido</h2>
+      <p id="sidebar-count">Cargando etiquetas...</p>
+    </div>
+    <div id="reading-progress" title="Progreso de lectura">
+      <div id="reading-progress-bar"></div>
+    </div>
+    <div class="sidebar-search">
+      <input type="text" id="sidebar-filter" placeholder="🔍 Filtrar etiqueta..." aria-label="Filtrar navegación" />
+    </div>
+    <nav id="sidebar-nav-list" aria-label="Lista de etiquetas"></nav>
+    <div class="sidebar-footer">
+      <button class="sidebar-quick-btn" id="btn-prev" title="Anterior">◀ Ant</button>
+      <button class="sidebar-quick-btn" id="btn-top" title="Ir al inicio">▲ Top</button>
+      <button class="sidebar-quick-btn" id="btn-next" title="Siguiente">Sig ▶</button>
+    </div>
+  </aside>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
