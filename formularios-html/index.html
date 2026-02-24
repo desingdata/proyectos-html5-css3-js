@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Formularios en HTML5 — Proyecto Práctico</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="https://desingdata.github.io/desingdata/img/DesingData_favicon-96x96.png" sizes="96x96" type="image/png">
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════
+     NAVBAR FIJA
+════════════════════════════════════════════════ -->
+<nav id="navbar">
+
+  <!-- Links de escritorio -->
+  <ul class="nav-links">
+    <li><a href="#sec-etiquetas" data-section="sec-etiquetas">
+      <span class="nav-num">01</span> Etiquetas
+    </a></li>
+    <li><a href="#sec-especializadas" data-section="sec-especializadas">
+      <span class="nav-num">02</span> Especializadas
+    </a></li>
+    <li><a href="#sec-envio" data-section="sec-envio">
+      <span class="nav-num">03</span> Envío
+    </a></li>
+    <li><a href="#sec-validacion" data-section="sec-validacion">
+      <span class="nav-num">04</span> Validación
+    </a></li>
+  </ul>
+
+  <!-- Hamburger para móvil -->
+  <button class="nav-hamburger" id="hamburger" aria-label="Menú">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Barra de progreso de lectura -->
+<div id="read-progress"></div>
+
+<!-- Drawer móvil -->
+<div id="nav-drawer">
+  <a href="#sec-etiquetas" data-section="sec-etiquetas">
+    <span class="nav-num">01</span> Etiquetas de Formularios
+  </a>
+  <a href="#sec-especializadas" data-section="sec-especializadas">
+    <span class="nav-num">02</span> Etiquetas Especializadas
+  </a>
+  <a href="#sec-envio" data-section="sec-envio">
+    <span class="nav-num">03</span> Envío de Formularios
+  </a>
+  <a href="#sec-validacion" data-section="sec-validacion">
+    <span class="nav-num">04</span> Validación
+  </a>
+</div>
+
+<!-- Botón volver arriba -->
+<button id="back-top" title="Volver arriba">↑</button>
+
+<!-- ════════════════════════════════════════════════
+     HEADER
+════════════════════════════════════════════════ -->
+<header>
+  <h1><span>Formularios</span> en HTML5</h1>
+  <p>Formularios
+Los formularios son la forma que tiene HTML de pedir información al usuario para saber que hacer.
+ Además, comprobar y verificar que la información es adecuada y correcta, garantizará que todo funcione como debería.
+</p>
+</header>
+
+<div class="container">
+
+  <!-- ══════════════════════════════════
+       CATEGORÍA 1: ETIQUETAS DE FORMULARIO
+  ══════════════════════════════════ -->
+  <section class="category" id="sec-etiquetas">
+    <div class="category-title"><span class="num">01</span> Etiquetas de Formularios</div>
+
+    <!-- ─── <form> ─── -->
+    <div class="card">
+      <h3>&lt;form&gt;</h3>
+      <p class="definition">
+        Contenedor principal que agrupa todos los controles de un formulario. Define hacia dónde y cómo se envían los datos del usuario mediante los atributos <code>action</code> y <code>method</code>.
+      </p>
+      <pre>
+<span class="cm">&lt;!-- action: URL de destino | method: GET envía en URL, POST envía en cuerpo --&gt;</span>
+<span class="tg">&lt;form</span> <span class="at">action</span>=<span class="vl">"/procesar.php"</span> <span class="at">method</span>=<span class="vl">"post"</span><span class="tg">&gt;</span>
+  <span class="cm">&lt;!-- Aquí van los campos del formulario --&gt;</span>
+<span class="tg">&lt;/form&gt;</span></pre>
+    </div>
+
+    <!-- ─── <input> ─── -->
+    <div class="card">
+      <h3>&lt;input&gt;</h3>
+      <p class="definition">
+        Elemento de entrada más versátil de HTML. Su comportamiento cambia completamente con el atributo <code>type</code>, permitiendo texto, email, password, número, archivo y muchos más tipos.
+      </p>
+      <pre>
+<span class="cm">&lt;!-- type="text"  → campo de texto de una línea --&gt;</span>
+<span class="cm">&lt;!-- name         → clave del dato que se enviará --&gt;</span>
+<span class="cm">&lt;!-- placeholder  → texto de ayuda dentro del campo --&gt;</span>
+<span class="tg">&lt;input</span> <span class="at">type</span>=<span class="vl">"text"</span> <span class="at">name</span>=<span class="vl">"nombre"</span> <span class="at">placeholder</span>=<span class="vl">"Tu nombre"</span><span class="tg">&gt;</span>
+<span class="tg">&lt;input</span> <span class="at">type</span>=<span class="vl">"email"</span> <span class="at">name</span>=<span class="vl">"correo"</span> <span class="at">placeholder</span>=<span class="vl">"<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="157078747c7955707f707865797a3b767a78">[email&#160;protected]</a>"</span><span class="tg">&gt;</span></pre>
+      <div class="demo-label">▶ Demo en vivo</div>
+      <div class="demo">
+        <label>Nombre</label>
+        <input type="text" placeholder="Tu nombre completo">
+        <label>Email</label>
+        <input type="email" placeholder="email@ejemplo.com">
+      </div>
+    </div>
+
+    <!-- ─── <textarea> ─── -->
+    <div class="card">
+      <h3>&lt;textarea&gt;</h3>
+      <p class="definition">
+        Campo de texto multilínea. A diferencia de <code>&lt;input&gt;</code>, su contenido inicial va entre etiquetas de apertura y cierre. <code>rows</code> y <code>cols</code> controlan su tamaño.
+      </p>
+      <pre>
+<span class="cm">&lt;!-- rows: número de filas visibles | cols: número de columnas --&gt;</span>
+<span class="tg">&lt;textarea</span> <span class="at">name</span>=<span class="vl">"mensaje"</span> <span class="at">rows</span>=<span class="vl">"4"</span> <span class="at">placeholder</span>=<span class="vl">"Escribe tu mensaje..."</span><span class="tg">&gt;&lt;/textarea&gt;</span></pre>
+      <div class="demo-label">▶ Demo en vivo</div>
+      <div class="demo">
+        <label>Mensaje</label>
+        <textarea rows="3" placeholder="Escribe tu mensaje aquí..."></textarea>
+      </div>
+    </div>
+
+    <!-- ─── <select> ─── -->
+    <div class="card">
+      <h3>&lt;select&gt;</h3>
+      <p class="definition">
+        Lista desplegable de opciones. Cada opción se define con <code>&lt;option&gt;</code>. El atributo <code>value</code> es el dato real que se envía; el texto entre etiquetas es lo que ve el usuario.
+      </p>
+      <pre>
+<span class="cm">&lt;!-- &lt;select&gt; agrupa las opciones disponibles --&gt;</span>
+<span class="tg">&lt;select</span> <span class="at">name</span>=<span class="vl">"pais"</span><span class="tg">&gt;</span>
+  <span class="tg">&lt;option</span> <span class="at">value</span>=<span class="vl">""</span><span class="tg">&gt;</span><span class="tx">-- Selecciona un país --</span><span class="tg">&lt;/option&gt;</span>
+  <span class="tg">&lt;option</span> <span class="at">value</span>=<span class="vl">"co"</span><span class="tg">&gt;</span><span class="tx">Colombia</span><span class="tg">&lt;/option&gt;</span>
+  <span class="tg">&lt;option</span> <span class="at">value</span>=<span class="vl">"mx"</span> <span class="at">selected</span><span class="tg">&gt;</span><span class="tx">México</span><span class="tg">&lt;/option&gt;</span>
+<span class="tg">&lt;/select&gt;</span></pre>
+      <div class="demo-label">▶ Demo en vivo</div>
+      <div class="demo">
+        <label>País</label>
+        <select>
+          <option value="">-- Selecciona un país --</option>
+          <option value="co">Colombia</option>
+          <option value="mx" selected>México</option>
+          <option value="ar">Argentina</option>
+          <option value="es">España</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- ─── Personalizar <select> con <optgroup> ─── -->
+    <div class="card">
+      <h3>Personalizar &lt;select&gt; con &lt;optgroup&gt;</h3>
+      <p class="definition">
+        <code>&lt;optgroup&gt;</code> permite agrupar opciones bajo una etiqueta descriptiva, mejorando la legibilidad de listas largas sin necesidad de CSS adicional.
+      </p>
+      <pre>
+<span class="cm">&lt;!-- optgroup: agrupa opciones con un título visible pero no seleccionable --&gt;</span>
+<span class="tg">&lt;select</span> <span class="at">name</span>=<span class="vl">"ciudad"</span><span class="tg">&gt;</span>
+  <span class="tg">&lt;optgroup</span> <span class="at">label</span>=<span class="vl">"Colombia"</span><span class="tg">&gt;</span>
+    <span class="tg">&lt;option</span> <span class="at">value</span>=<span class="vl">"bog"</span><span class="tg">&gt;</span><span class="tx">Bogotá</span><span class="tg">&lt;/option&gt;</span>
+    <span class="tg">&lt;option</span> <span class="at">value</span>=<span class="vl">"per"</span><span class="tg">&gt;</span><span class="tx">Pereira</span><span class="tg">&lt;/option&gt;</span>
+  <span class="tg">&lt;/optgroup&gt;</span>
+  <span class="tg">&lt;optgroup</span> <span class="at">label</span>=<span class="vl">"México"</span><span class="tg">&gt;</span>
+    <span class="tg">&lt;option</span> <span class="at">value</span>=<span class="vl">"cdmx"</span><span class="tg">&gt;</span><span class="tx">CDMX</span><span class="tg">&lt;/option&gt;</span>
+  <span class="tg">&lt;/optgroup&gt;</span>
+<span class="tg">&lt;/select&gt;</span></pre>
+      <div class="demo-label">▶ Demo en vivo</div>
+      <div class="demo">
+        <label>Ciudad</label>
+        <select>
+          <optgroup label="Colombia">
+            <option value="bog">Bogotá</option>
+            <option value="per">Pereira</option>
+            <option value="med">Medellín</option>
+          </optgroup>
+          <optgroup label="México">
+            <option value="cdmx">Ciudad de México</option>
+            <option value="gdl">Guadalajara</option>
+          </optgroup>
+        </select>
+      </div>
+    </div>
+
+    <!-- ─── <datalist> ─── -->
+    <div class="card">
+      <h3>&lt;datalist&gt;</h3>
+      <p class="definition">
+        Proporciona una lista de sugerencias autocompletables para un <code>&lt;input&gt;</code>. A diferencia de <code>&lt;select&gt;</code>, el usuario puede escribir libremente o elegir una sugerencia. Se vincula mediante el atributo <code>list</code>.
+      </p>
+      <pre>
+<span class="cm">&lt;!-- list="id-datalist" conecta el input con sus sugerencias --&gt;</span>
+<span class="tg">&lt;input</span> <span class="at">type</span>=<span class="vl">"text"</span> <span class="at">list</span>=<span class="vl">"lenguajes"</span> <span class="at">placeholder</span>=<span class="vl">"Escribe un lenguaje..."</span><span class="tg">&gt;</span>
+
+<span class="cm">&lt;!-- datalist: define las opciones sugeridas (invisible por defecto) --&gt;</span>
+<span class="tg">&lt;datalist</span> <span class="at">id</span>=<span class="vl">"lenguajes"</span><span class="tg">&gt;</span>
+  <span class="tg">&lt;option</span> <span class="at">value</span>=<span class="vl">"JavaScript"</span><span class="tg">&gt;</span>
+  <span class="tg">&lt;option</span> <span class="at">value</span>=<span class="vl">"Python"</span><span class="tg">&gt;</span>
+  <span class="tg">&lt;option</span> <span class="at">value</span>=<span class="vl">"HTML5"</span><span class="tg">&gt;</span>
+<span class="tg">&lt;/datalist&gt;</span></pre>
+      <div class="demo-label">▶ Demo en vivo</div>
+      <div class="demo">
+        <label>Lenguaje favorito (escribe para autocompletar)</label>
+        <input type="text" list="lenguajes-demo" placeholder="Ej: Python">
+        <datalist id="lenguajes-demo">
+          <option value="JavaScript">
+          <option value="Python">
+          <option value="HTML5">
+          <option value="CSS3">
+          <option value="TypeScript">
+          <option value="PHP">
+          <option value="Java">
+        </datalist>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════
+       CATEGORÍA 2: ETIQUETAS ESPECIALIZADAS
+  ══════════════════════════════════ -->
+  <section class="category" id="sec-especializadas">
+    <div class="category-title"><span class="num">02</span> Etiquetas Especializadas</div>
+
+    <!-- ─── input números ─── -->
+    <div class="card">
+      <h3>&lt;input type="number"&gt;</h3>
+      <p class="definition">
+        Campo numérico con controles de incremento/decremento. <code>min</code>, <code>max</code> y <code>step</code> limitan y regulan los valores aceptados.
+      </p>
+      <pre>
+<span class="cm">&lt;!-- min: valor mínimo | max: máximo | step: incremento por clic --&gt;</span>
+<span class="tg">&lt;input</span> <span class="at">type</span>=<span class="vl">"number"</span> <span class="at">name</span>=<span class="vl">"edad"</span>
+       <span class="at">min</span>=<span class="vl">"1"</span> <span class="at">max</span>=<span class="vl">"120"</span> <span class="at">step</span>=<span class="vl">"1"</span> <span class="at">value</span>=<span class="vl">"18"</span><span class="tg">&gt;</span></pre>
+      <div class="demo-label">▶ Demo en vivo</div>
+      <div class="demo">
+        <label>Edad (1–120)</label>
+        <input type="number" min="1" max="120" step="1" value="18">
+        <label>Precio (0 – 10 000, paso 50)</label>
+        <input type="number" min="0" max="10000" step="50" value="0">
+      </div>
+    </div>
+
+    <!-- ─── input fechas ─── -->
+    <div class="card">
+      <h3>&lt;input type="date / time / datetime-local"&gt;</h3>
+      <p class="definition">
+        Campos nativos para seleccionar fechas y horas. El navegador muestra un selector visual. <code>date</code> solo fecha, <code>time</code> solo hora, <code>datetime-local</code> ambas juntas.
+      </p>
+      <pre>
+<span class="cm">&lt;!-- date: selector de fecha (YYYY-MM-DD) --&gt;</span>
+<span class="tg">&lt;input</span> <span class="at">type</span>=<span class="vl">"date"</span> <span class="at">name</span>=<span class="vl">"nacimiento"</span> <span class="at">min</span>=<span class="vl">"2000-01-01"</span><span class="tg">&gt;</span>
+
+<span class="cm">&lt;!-- time: hora (HH:MM) --&gt;</span>
+<span class="tg">&lt;input</span> <span class="at">type</span>=<span class="vl">"time"</span> <span class="at">name</span>=<span class="vl">"hora"</span><span class="tg">&gt;</span>
+
+<span class="cm">&lt;!-- datetime-local: fecha y hora combinadas --&gt;</span>
+<span class="tg">&lt;input</span> <span class="at">type</span>=<span class="vl">"datetime-local"</span> <span class="at">name</span>=<span class="vl">"cita"</span><span class="tg">&gt;</span></pre>
+      <div class="demo-label">▶ Demo en vivo</div>
+      <div class="demo">
+        <label>Fecha de nacimiento</label>
+        <input type="date" name="nacimiento">
+        <label>Hora de entrada</label>
+        <input type="time" name="hora">
+        <label>Fecha y hora de cita</label>
+        <input type="datetime-local" name="cita">
+      </div>
+    </div>
+
+    <!-- ─── casillas ─── -->
+    <div class="card">
+      <h3>&lt;input type="checkbox" / "radio"&gt;</h3>
+      <p class="definition">
+        <strong>checkbox</strong>: casilla de verificación independiente (múltiple selección). <strong>radio</strong>: opción exclusiva dentro de un grupo; se agrupan con el mismo atributo <code>name</code>.
+      </p>
+      <pre>
+<span class="cm">&lt;!-- checkbox: cada casilla es independiente --&gt;</span>
+<span class="tg">&lt;input</span> <span class="at">type</span>=<span class="vl">"checkbox"</span> <span class="at">name</span>=<span class="vl">"html"</span> <span class="at">checked</span><span class="tg">&gt;</span> <span class="tx">HTML</span>
+<span class="tg">&lt;input</span> <span class="at">type</span>=<span class="vl">"checkbox"</span> <span class="at">name</span>=<span class="vl">"css"</span><span class="tg">&gt;</span> <span class="tx">CSS</span>
+
+<span class="cm">&lt;!-- radio: mismo name = grupo exclusivo --&gt;</span>
+<span class="tg">&lt;input</span> <span class="at">type</span>=<span class="vl">"radio"</span> <span class="at">name</span>=<span class="vl">"nivel"</span> <span class="at">value</span>=<span class="vl">"basico"</span><span class="tg">&gt;</span> <span class="tx">Básico</span>
+<span class="tg">&lt;input</span> <span class="at">type</span>=<span class="vl">"radio"</span> <span class="at">name</span>=<span class="vl">"nivel"</span> <span class="at">value</span>=<span class="vl">"avanzado"</span><span class="tg">&gt;</span> <span class="tx">Avanzado</span></pre>
+      <div class="demo-label">▶ Demo en vivo</div>
+      <div class="demo">
+        <fieldset>
+          <legend>Tecnologías (checkbox)</legend>
+          <input type="checkbox" checked> HTML5 &nbsp;
+          <input type="checkbox"> CSS3 &nbsp;
+          <input type="checkbox"> JavaScript
+        </fieldset>
+        <fieldset>
+          <legend>Nivel (radio)</legend>
+          <input type="radio" name="nivel" value="b"> Básico &nbsp;
+          <input type="radio" name="nivel" value="i" checked> Intermedio &nbsp;
+          <input type="radio" name="nivel" value="a"> Avanzado
+        </fieldset>
+      </div>
+    </div>
+
+    <!-- ─── input colores ─── -->
+    <div class="card">
+      <h3>&lt;input type="color"&gt;</h3>
+      <p class="definition">
+        Abre un selector de color nativo del sistema operativo. El valor siempre es un código hexadecimal (<code>#rrggbb</code>). Perfecto para personalización visual.
+      </p>
+      <pre>
+<span class="cm">&lt;!-- value inicial en hex. El usuario elige con el selector nativo --&gt;</span>
+<span class="tg">&lt;input</span> <span class="at">type</span>=<span class="vl">"color"</span> <span class="at">name</span>=<span class="vl">"color_fav"</span> <span class="at">value</span>=<span class="vl">"#5affa3"</span><span class="tg">&gt;</span></pre>
+      <div class="demo-label">▶ Demo en vivo</div>
+      <div class="demo">
+        <label>Color favorito</label>
+        <input type="color" value="#5affa3" id="colorPicker">
+        <label>Color de fondo</label>
+        <input type="color" value="#0d0d0f">
+      </div>
+    </div>
+
+    <!-- ─── Organización de campos ─── -->
+    <div class="card">
+      <h3>Organización de campos: &lt;fieldset&gt; y &lt;legend&gt;</h3>
+      <p class="definition">
+        <code>&lt;fieldset&gt;</code> agrupa campos relacionados con un borde visual. <code>&lt;legend&gt;</code> le pone un título al grupo, mejorando la accesibilidad y la semántica del formulario.
+      </p>
+      <pre>
+<span class="cm">&lt;!-- fieldset: crea un grupo visual y semántico de campos --&gt;</span>
+<span class="tg">&lt;fieldset&gt;</span>
+  <span class="cm">&lt;!-- legend: título del grupo de campos --&gt;</span>
+  <span class="tg">&lt;legend&gt;</span><span class="tx">Datos personales</span><span class="tg">&lt;/legend&gt;</span>
+
+  <span class="tg">&lt;label&gt;</span><span class="tx">Nombre:</span><span class="tg">&lt;/label&gt;</span>
+  <span class="tg">&lt;input</span> <span class="at">type</span>=<span class="vl">"text"</span> <span class="at">name</span>=<span class="vl">"nombre"</span><span class="tg">&gt;</span>
+
+  <span class="tg">&lt;label&gt;</span><span class="tx">Apellido:</span><span class="tg">&lt;/label&gt;</span>
+  <span class="tg">&lt;input</span> <span class="at">type</span>=<span class="vl">"text"</span> <span class="at">name</span>=<span class="vl">"apellido"</span><span class="tg">&gt;</span>
+<span class="tg">&lt;/fieldset&gt;</span></pre>
+      <div class="demo-label">▶ Demo en vivo</div>
+      <div class="demo">
+        <fieldset>
+          <legend>Datos personales</legend>
+          <label>Nombre</label>
+          <input type="text" placeholder="Nombre">
+          <label>Apellido</label>
+          <input type="text" placeholder="Apellido">
+        </fieldset>
+        <fieldset>
+          <legend>Contacto</legend>
+          <label>Teléfono</label>
+          <input type="tel" placeholder="+57 300 000 0000">
+        </fieldset>
+      </div>
+    </div>
+
+    <!-- ─── input ficheros ─── -->
+    <div class="card">
+      <h3>&lt;input type="file"&gt;</h3>
+      <p class="definition">
+        Permite al usuario seleccionar uno o varios archivos de su dispositivo. <code>accept</code> filtra los tipos permitidos; <code>multiple</code> habilita la selección de varios archivos.
+      </p>
+      <pre>
+<span class="cm">&lt;!-- accept: tipos MIME o extensiones permitidas --&gt;</span>
+<span class="cm">&lt;!-- multiple: permite seleccionar más de un fichero --&gt;</span>
+<span class="tg">&lt;input</span> <span class="at">type</span>=<span class="vl">"file"</span> <span class="at">name</span>=<span class="vl">"foto"</span> <span class="at">accept</span>=<span class="vl">"image/*"</span><span class="tg">&gt;</span>
+<span class="tg">&lt;input</span> <span class="at">type</span>=<span class="vl">"file"</span> <span class="at">name</span>=<span class="vl">"docs"</span> <span class="at">accept</span>=<span class="vl">".pdf,.docx"</span> <span class="at">multiple</span><span class="tg">&gt;</span></pre>
+      <div class="demo-label">▶ Demo en vivo</div>
+      <div class="demo">
+        <label>Foto de perfil (solo imágenes)</label>
+        <input type="file" accept="image/*">
+        <label>Documentos PDF (múltiples)</label>
+        <input type="file" accept=".pdf" multiple>
+      </div>
+    </div>
+
+    <!-- ─── <meter> ─── -->
+    <div class="card">
+      <h3>&lt;meter&gt;</h3>
+      <p class="definition">
+        Representa un valor escalar dentro de un rango conocido (no progreso). Útil para indicadores como nivel de batería, espacio en disco o puntaje. Admite <code>min</code>, <code>max</code>, <code>low</code>, <code>high</code> y <code>optimum</code>.
+      </p>
+      <pre>
+<span class="cm">&lt;!-- value: valor actual | min/max: rango | low/high/optimum: zonas de color --&gt;</span>
+<span class="tg">&lt;meter</span> <span class="at">value</span>=<span class="vl">"70"</span> <span class="at">min</span>=<span class="vl">"0"</span> <span class="at">max</span>=<span class="vl">"100"</span>
+       <span class="at">low</span>=<span class="vl">"25"</span> <span class="at">high</span>=<span class="vl">"75"</span> <span class="at">optimum</span>=<span class="vl">"80"</span><span class="tg">&gt;</span>
+  <span class="tx">70%</span>
+<span class="tg">&lt;/meter&gt;</span></pre>
+      <div class="demo-label">▶ Demo en vivo</div>
+      <div class="demo">
+        <label>Nivel de batería</label>
+        <meter value="70" min="0" max="100" low="25" high="75" optimum="80"></meter>
+        <label>Espacio usado en disco</label>
+        <meter value="90" min="0" max="100" low="50" high="80" optimum="30"></meter>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════
+       CATEGORÍA 3: ENVÍO DE FORMULARIOS
+  ══════════════════════════════════ -->
+  <section class="category" id="sec-envio">
+    <div class="category-title"><span class="num">03</span> Envío de Formularios</div>
+
+    <!-- ─── <progress> ─── -->
+    <div class="card">
+      <h3>&lt;progress&gt;</h3>
+      <p class="definition">
+        Muestra el progreso de una tarea (carga, pasos completados). <code>value</code> es el progreso actual; <code>max</code> es el total. Sin <code>value</code> muestra animación indeterminada.
+      </p>
+      <pre>
+<span class="cm">&lt;!-- value: progreso actual | max: total (suele ser 100) --&gt;</span>
+<span class="tg">&lt;progress</span> <span class="at">value</span>=<span class="vl">"60"</span> <span class="at">max</span>=<span class="vl">"100"</span><span class="tg">&gt;</span><span class="tx">60%</span><span class="tg">&lt;/progress&gt;</span>
+
+<span class="cm">&lt;!-- Sin value → progreso indeterminado (animación infinita) --&gt;</span>
+<span class="tg">&lt;progress&gt;</span><span class="tg">&lt;/progress&gt;</span></pre>
+      <div class="demo-label">▶ Demo en vivo</div>
+      <div class="demo">
+        <label>Carga del archivo (60%)</label>
+        <progress value="60" max="100"></progress>
+        <label>Procesando... (indeterminado)</label>
+        <progress></progress>
+      </div>
+    </div>
+
+    <!-- ─── input submit ─── -->
+    <div class="card">
+      <h3>&lt;input type="submit"&gt;</h3>
+      <p class="definition">
+        Botón que al hacer clic envía el formulario al <code>action</code> definido. El <code>value</code> define el texto visible del botón. Es equivalente a <code>&lt;button type="submit"&gt;</code>.
+      </p>
+      <pre>
+<span class="cm">&lt;!-- value: texto visible del botón de envío --&gt;</span>
+<span class="tg">&lt;input</span> <span class="at">type</span>=<span class="vl">"submit"</span> <span class="at">value</span>=<span class="vl">"Enviar formulario"</span><span class="tg">&gt;</span>
+
+<span class="cm">&lt;!-- También podemos resetear con type="reset" --&gt;</span>
+<span class="tg">&lt;input</span> <span class="at">type</span>=<span class="vl">"reset"</span> <span class="at">value</span>=<span class="vl">"Limpiar campos"</span><span class="tg">&gt;</span></pre>
+      <div class="demo-label">▶ Demo en vivo</div>
+      <div class="demo">
+        <input type="submit" value="Enviar formulario">
+        &nbsp;
+        <input type="reset" value="Limpiar" style="background:transparent;border:1px solid #ff5a8a;color:#ff5a8a;cursor:pointer;padding:.5rem 1rem;border-radius:6px;font-family:inherit;">
+      </div>
+    </div>
+
+    <!-- ─── <button> ─── -->
+    <div class="card">
+      <h3>&lt;button&gt;</h3>
+      <p class="definition">
+        Botón más flexible que <code>&lt;input type="submit"&gt;</code>. Admite HTML en su interior (iconos, texto enriquecido). <code>type="submit"</code> envía, <code>type="button"</code> no envía (para JS), <code>type="reset"</code> limpia.
+      </p>
+      <pre>
+<span class="cm">&lt;!-- type="submit": envía el formulario (comportamiento por defecto) --&gt;</span>
+<span class="tg">&lt;button</span> <span class="at">type</span>=<span class="vl">"submit"</span><span class="tg">&gt;</span><span class="tx">🚀 Enviar</span><span class="tg">&lt;/button&gt;</span>
+
+<span class="cm">&lt;!-- type="button": no envía, útil para acciones con JavaScript --&gt;</span>
+<span class="tg">&lt;button</span> <span class="at">type</span>=<span class="vl">"button"</span> <span class="at">onclick</span>=<span class="vl">"alert('Hola!')"</span><span class="tg">&gt;</span><span class="tx">Acción JS</span><span class="tg">&lt;/button&gt;</span>
+
+<span class="cm">&lt;!-- type="reset": limpia todos los campos del formulario --&gt;</span>
+<span class="tg">&lt;button</span> <span class="at">type</span>=<span class="vl">"reset"</span><span class="tg">&gt;</span><span class="tx">♻️ Limpiar</span><span class="tg">&lt;/button&gt;</span></pre>
+      <div class="demo-label">▶ Demo en vivo</div>
+      <div class="demo" style="display:flex;gap:.7rem;flex-wrap:wrap">
+        <button type="submit">🚀 Enviar</button>
+        <button type="button" class="secondary" onclick="alert('¡Botón JS ejecutado!')">⚡ Acción JS</button>
+        <button type="reset" class="secondary">♻️ Limpiar</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════
+       CATEGORÍA 4: VALIDACIÓN
+  ══════════════════════════════════ -->
+  <section class="category" id="sec-validacion">
+    <div class="category-title"><span class="num">04</span> Validación de Formularios</div>
+
+    <!-- ─── ¿Qué son las validaciones? ─── -->
+    <div class="card">
+      <h3>¿Qué son las validaciones?</h3>
+      <p class="definition">
+        Las validaciones comprueban que los datos ingresados por el usuario cumplen los requisitos antes de enviarlos. HTML5 ofrece validación nativa sin necesidad de JavaScript, mostrando mensajes automáticos del navegador.
+      </p>
+      <pre>
+<span class="cm">&lt;!-- Sin validación (peligroso): el servidor recibe datos incorrectos --&gt;</span>
+<span class="tg">&lt;input</span> <span class="at">type</span>=<span class="vl">"text"</span> <span class="at">name</span>=<span class="vl">"email"</span><span class="tg">&gt;</span>   <span class="cm">&lt;!-- acepta cualquier cosa --&gt;</span>
+
+<span class="cm">&lt;!-- Con validación: el navegador comprueba el formato --&gt;</span>
+<span class="tg">&lt;input</span> <span class="at">type</span>=<span class="vl">"email"</span> <span class="at">name</span>=<span class="vl">"email"</span> <span class="at">required</span><span class="tg">&gt;</span>  <span class="cm">&lt;!-- debe ser email y no vacío --&gt;</span></pre>
+    </div>
+
+    <!-- ─── Validaciones básicas ─── -->
+    <div class="card">
+      <h3>Validaciones básicas con HTML5</h3>
+      <p class="definition">
+        HTML5 incluye atributos de validación nativos: <code>required</code> (campo obligatorio), <code>minlength</code>/<code>maxlength</code> (longitud de texto), <code>min</code>/<code>max</code> (rango numérico), <code>type</code> (formato: email, url, number…).
+      </p>
+      <pre>
+<span class="cm">&lt;!-- required: el campo no puede estar vacío --&gt;</span>
+<span class="tg">&lt;input</span> <span class="at">type</span>=<span class="vl">"text"</span> <span class="at">required</span><span class="tg">&gt;</span>
+
+<span class="cm">&lt;!-- minlength/maxlength: controlan la longitud del texto --&gt;</span>
+<span class="tg">&lt;input</span> <span class="at">type</span>=<span class="vl">"password"</span> <span class="at">minlength</span>=<span class="vl">"8"</span> <span class="at">maxlength</span>=<span class="vl">"20"</span> <span class="at">required</span><span class="tg">&gt;</span>
+
+<span class="cm">&lt;!-- type="email" valida automáticamente el formato de correo --&gt;</span>
+<span class="tg">&lt;input</span> <span class="at">type</span>=<span class="vl">"email"</span> <span class="at">required</span><span class="tg">&gt;</span>
+
+<span class="cm">&lt;!-- type="url" valida que comience con http:// o https:// --&gt;</span>
+<span class="tg">&lt;input</span> <span class="at">type</span>=<span class="vl">"url"</span> <span class="at">placeholder</span>=<span class="vl">"https://ejemplo.com"</span><span class="tg">&gt;</span></pre>
+      <div class="demo-label">▶ Demo en vivo (haz clic en Enviar sin llenar)</div>
+      <div class="demo">
+        <form onsubmit="event.preventDefault(); alert('✅ Formulario válido!')">
+          <label>Nombre (obligatorio)</label>
+          <input type="text" required placeholder="Campo obligatorio">
+          <label>Email (formato válido + obligatorio)</label>
+          <input type="email" required placeholder="usuario@dominio.com">
+          <label>Contraseña (8–20 caracteres)</label>
+          <input type="password" minlength="8" maxlength="20" required placeholder="Mínimo 8 caracteres">
+          <label>Sitio web (URL)</label>
+          <input type="url" placeholder="https://misitio.com">
+          <button type="submit">Validar y Enviar</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- ─── pattern ─── -->
+    <div class="card">
+      <h3>El atributo pattern (RegExp)</h3>
+      <p class="definition">
+        <code>pattern</code> acepta una expresión regular (RegExp) para validar formatos personalizados que los tipos estándar no cubren: teléfonos, códigos postales, nombres con restricciones, etc. <code>title</code> describe el formato esperado en el tooltip de error.
+      </p>
+      <pre>
+<span class="cm">&lt;!-- pattern: RegExp que debe coincidir con el valor completo --&gt;</span>
+<span class="cm">&lt;!-- title: mensaje de ayuda que se muestra al usuario --&gt;</span>
+
+<span class="cm">&lt;!-- Solo letras (sin números ni símbolos) --&gt;</span>
+<span class="tg">&lt;input</span> <span class="at">type</span>=<span class="vl">"text"</span>
+       <span class="at">pattern</span>=<span class="vl">"[A-Za-záéíóúÁÉÍÓÚñÑ\s]+"</span>
+       <span class="at">title</span>=<span class="vl">"Solo letras y espacios"</span> <span class="at">required</span><span class="tg">&gt;</span>
+
+<span class="cm">&lt;!-- Teléfono colombiano: +57 seguido de 10 dígitos --&gt;</span>
+<span class="tg">&lt;input</span> <span class="at">type</span>=<span class="vl">"tel"</span>
+       <span class="at">pattern</span>=<span class="vl">"\+57[0-9]{10}"</span>
+       <span class="at">title</span>=<span class="vl">"Formato: +57XXXXXXXXXX"</span>
+       <span class="at">placeholder</span>=<span class="vl">"+573001234567"</span><span class="tg">&gt;</span>
+
+<span class="cm">&lt;!-- Código postal (5 dígitos exactos) --&gt;</span>
+<span class="tg">&lt;input</span> <span class="at">type</span>=<span class="vl">"text"</span>
+       <span class="at">pattern</span>=<span class="vl">"[0-9]{5}"</span>
+       <span class="at">title</span>=<span class="vl">"5 dígitos numéricos"</span>
+       <span class="at">placeholder</span>=<span class="vl">"66001"</span><span class="tg">&gt;</span>
+
+<span class="cm">&lt;!-- Contraseña fuerte: mayúscula + minúscula + número, 8+ chars --&gt;</span>
+<span class="tg">&lt;input</span> <span class="at">type</span>=<span class="vl">"password"</span>
+       <span class="at">pattern</span>=<span class="vl">"(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{8,}"</span>
+       <span class="at">title</span>=<span class="vl">"Mínimo 8 chars, 1 mayúscula, 1 minúscula y 1 número"</span><span class="tg">&gt;</span></pre>
+      <div class="demo-label">▶ Demo en vivo</div>
+      <div class="demo">
+        <form onsubmit="event.preventDefault(); alert('✅ Todos los patrones son válidos!')">
+          <label>Nombre (solo letras y espacios)</label>
+          <input type="text"
+                 pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s]+"
+                 title="Solo letras y espacios — sin números ni símbolos"
+                 placeholder="Juan Pérez" required>
+
+          <label>Teléfono colombiano (+57XXXXXXXXXX)</label>
+          <input type="tel"
+                 pattern="\+57[0-9]{10}"
+                 title="Formato exacto: +57 seguido de 10 dígitos"
+                 placeholder="+573001234567">
+
+          <label>Código postal (5 dígitos)</label>
+          <input type="text"
+                 pattern="[0-9]{5}"
+                 title="Exactamente 5 dígitos numéricos"
+                 placeholder="66001">
+
+          <label>Contraseña segura (≥8 chars, mayúscula, minúscula, número)</label>
+          <input type="password"
+                 pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{8,}"
+                 title="Mínimo 8 caracteres con al menos 1 mayúscula, 1 minúscula y 1 número"
+                 placeholder="MiClave123">
+
+          <button type="submit">Verificar patrones</button>
+        </form>
+      </div>
+    </div>
+
+  </section>
+</div>
+
+<footer>
+   ·<a style="text-decoration: none; color: white;" href="https://desingdata.github.io/desingdata/" target="_blank">Desing Data</a> 2026 |
+    ·By <a style="text-decoration: none; color: white;" href="https://miguelmauricioriveralopez18686.github.io/mrlPortafolio/" target="_blank">
+      Miguel Mauricio Rivera López</a>.
+</footer>
+
+<script src="js/script.js"></script>
+</body>
+</html>
