@@ -1,0 +1,719 @@
+
+    /* ============================================================
+       VARIABLES GLOBALES
+       Centralizamos todos los valores del proyecto en :root
+       para mantener coherencia y facilitar el mantenimiento.
+    ============================================================ */
+
+    :root {
+      /* Paleta principal — tema oscuro */
+      --bg:           #0a0a0f;
+      --bg-card:      #111118;
+      --bg-code:      #0d1117;
+      --accent:       #00ffc8;
+      --accent-2:     #ff4d6d;
+      --accent-3:     #a78bfa;
+      --text:         #e8e8f0;
+      --text-muted:   #6b6b8a;
+      --border:       rgba(255,255,255,0.06);
+
+      /* Tipografía */
+      --font-display: 'Syne', sans-serif;
+      --font-code:    'Space Mono', monospace;
+
+      /* Espaciado */
+      --gap:    clamp(1rem, 3vw, 2rem);
+      --radius: 12px;
+
+      /* Transiciones */
+      --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    /* ============================================================
+       RESET & BASE
+       Reglas normalizadoras para homogeneizar el renderizado
+       en todos los navegadores.
+    ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-display);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ============================================================
+       SECCIÓN 1 — COMPATIBILIDAD
+       @supports: Detecta si el navegador soporta una propiedad
+       antes de aplicarla. Equivale a un "if" nativo de CSS.
+       Si no hay soporte, el fallback se mantiene activo.
+    ============================================================ */
+
+    /* FALLBACK UNIVERSAL (todos los navegadores) */
+    .hero-badge {
+      display: inline-block;
+      background: var(--accent-2);
+      color: #fff;
+      padding: .2em .7em;
+      border-radius: 4px;
+      font-size: .75rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      font-family: var(--font-code);
+    }
+
+    /* MEJORA PROGRESIVA — solo si el navegador soporta backdrop-filter */
+    @supports (backdrop-filter: blur(1px)) {
+      /* backdrop-filter: Aplica desenfoque al fondo detrás del elemento.
+         No soportado en versiones antiguas de Firefox/IE. */
+      .nav {
+        backdrop-filter: blur(18px) saturate(1.4);
+        -webkit-backdrop-filter: blur(18px) saturate(1.4);
+        background: rgba(10,10,15,0.6) !important;
+      }
+    }
+
+    /* DETECCIÓN DE GRID (navegadores modernos) */
+    @supports (display: grid) {
+      /* Si el navegador entiende CSS Grid, activamos el layout avanzado */
+      .cards-grid { display: grid; }
+    }
+
+    /* NIVELES CSS — Las propiedades se implementan gradualmente.
+       container-type es CSS Containment Level 3 (2023+) */
+    @supports (container-type: inline-size) {
+      .card { container-type: inline-size; container-name: card; }
+    }
+
+
+    /* ============================================================
+       SECCIÓN 2 — CÁLCULOS CSS
+       calc(): Mezcla unidades distintas en una sola expresión.
+       Es la función matemática más versátil de CSS.
+    ============================================================ */
+
+    /* calc() — ancho dinámico restando el gap del 50% del contenedor */
+    .two-col > * { width: calc(50% - var(--gap) / 2); }
+
+    /* ============================================================
+       min() / max() / clamp() — Máximos y mínimos en CSS
+       min(a, b)  → usa el MENOR de los dos valores
+       max(a, b)  → usa el MAYOR de los dos valores
+       clamp(min, ideal, max) → limita un valor entre un rango
+    ============================================================ */
+
+    /* clamp: tipografía fluida sin media queries */
+    h1 { font-size: clamp(2rem, 6vw, 5rem); }
+    h2 { font-size: clamp(1.4rem, 3vw, 2.2rem); }
+    h3 { font-size: clamp(1rem, 2vw, 1.4rem); }
+
+    /* min(): el padding nunca supera 5% del ancho visible */
+    .section { padding-inline: min(5%, 60px); }
+
+    /* max(): asegura que el ancho mínimo sea al menos 280px */
+    .card { width: max(280px, 100%); }
+
+
+    /* ============================================================
+       round() — Redondeo en CSS (CSS Values Level 4)
+       Redondea un valor a la cantidad de unidades indicadas.
+       round(nearest | up | down, valor, intervalo)
+    ============================================================ */
+
+    /* Ejemplo: columnas que se ajustan en pasos exactos de 10px */
+    .demo-round {
+      /* round(nearest, 63px, 10px) → 60px */
+      width: round(nearest, 63px, 10px);
+      height: 40px;
+      background: var(--accent);
+      border-radius: 4px;
+      display: inline-block;
+    }
+
+    /* rem() — Módulo (resto de división)
+       mod(valor, divisor) → devuelve el resto
+       Útil para patrones cíclicos (como "cada N elementos") */
+    /* Nota: se usa principalmente en cálculos dinámicos con custom props */
+
+
+    /* ============================================================
+       FUNCIONES TRIGONOMÉTRICAS — CSS Values Level 4
+       sin(), cos(), tan(), asin(), acos(), atan(), atan2()
+       Permiten crear distribuciones circulares, ondas y animaciones
+       sin geometría JavaScript.
+    ============================================================ */
+
+    .orbit-container {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      margin: 0 auto;
+    }
+
+    /* Cada punto usa sin/cos para posicionarse en círculo */
+    .orbit-dot {
+      --i: 0; /* índice del elemento, asignado con style="--i:N" */
+      --r: 80px; /* radio de la órbita */
+      --angle: calc(var(--i) * (360deg / 6)); /* ángulo proporcional */
+
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: var(--accent);
+      /* cos/sin convierten el ángulo en coordenadas X e Y */
+      transform: translate(
+        calc(cos(var(--angle)) * var(--r) - 50%),
+        calc(sin(var(--angle)) * var(--r) - 50%)
+      );
+      animation: pulse-dot 2s ease-in-out infinite;
+      animation-delay: calc(var(--i) * 0.15s);
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: translate(
+        calc(cos(var(--angle)) * var(--r) - 50%),
+        calc(sin(var(--angle)) * var(--r) - 50%)
+      ) scale(1); }
+      50% { opacity: .4; transform: translate(
+        calc(cos(var(--angle)) * var(--r) - 50%),
+        calc(sin(var(--angle)) * var(--r) - 50%)
+      ) scale(1.5); }
+    }
+
+
+    /* ============================================================
+       FUNCIONES EXPONENCIALES — CSS Values Level 4
+       pow(base, exp) → potencia: pow(2, 3) = 8
+       sqrt(n)        → raíz cuadrada: sqrt(9) = 3
+       log(n)         → logaritmo natural
+       exp(n)         → e elevado a n
+    ============================================================ */
+
+    /* Escala tipográfica basada en potencias de 1.25 */
+    .type-scale-1 { font-size: calc(1rem * pow(1.25, 0)); }  /* 1rem */
+    .type-scale-2 { font-size: calc(1rem * pow(1.25, 1)); }  /* 1.25rem */
+    .type-scale-3 { font-size: calc(1rem * pow(1.25, 2)); }  /* 1.5625rem */
+    .type-scale-4 { font-size: calc(1rem * pow(1.25, 3)); }  /* ~1.95rem */
+
+    /* sqrt: borde proporcional al área del componente */
+    .sqrt-border { border-width: calc(sqrt(16) * 1px); } /* 4px */
+
+
+    /* ============================================================
+       SECCIÓN 3 — LÓGICA CSS
+       CSS moderno incorpora estructuras que emulan la programación:
+       condicionales, funciones y valores dinámicos.
+    ============================================================ */
+
+
+    /* ============================================================
+       if() — Condicionales en CSS (propuesta CSS Values Level 5)
+       Permite cambiar estilos según el valor de una propiedad.
+       Sintaxis: if(condición: valor-true; else: valor-false)
+       NOTA: soporte experimental (Chrome 137+ / flags en 2024)
+    ============================================================ */
+
+    /* Simulación del concepto con custom properties booleanas */
+    /* Técnica: usar 0/1 como interruptor para activar estilos */
+    .toggle-item {
+      --active: 0; /* 0 = inactivo | 1 = activo */
+
+      /* Interpolamos el color usando la variable como multiplicador */
+      background: oklch(
+        calc(0.2 + var(--active) * 0.3)  /* luminosidad */
+        0.15
+        calc(180 - var(--active) * 60)   /* tono */
+      );
+      border: 2px solid oklch(
+        calc(0.5 + var(--active) * 0.4)
+        calc(var(--active) * 0.25)
+        160
+      );
+
+      padding: 1rem;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: background 0.3s var(--ease), border 0.3s var(--ease);
+      font-family: var(--font-code);
+      font-size: .85rem;
+      user-select: none;
+    }
+
+    /* Cuando recibe el atributo data-active, activamos --active: 1 */
+    .toggle-item[data-active="1"] { --active: 1; }
+
+
+    /* ============================================================
+       @function — Funciones CSS nativas (CSS Functions Level 1)
+       Define funciones reutilizables en CSS con argumentos propios.
+       NOTA: propuesta experimental, soporte limitado (Chrome 136+)
+       Aquí simulamos el patrón con custom properties anidadas.
+    ============================================================ */
+
+    /*
+      Idea de @function nativa (sintaxis futura):
+
+      @function --spacing(--n) {
+        result: calc(var(--n) * 8px);
+      }
+      .box { margin: --spacing(3); }  →  margin: 24px
+
+      Mientras tanto, usamos la técnica de multiplicación:
+    */
+    :root {
+      --unit: 8px;
+      /* --spacing-1 = 1 * 8px = 8px */
+      --spacing-1: calc(1 * var(--unit));
+      --spacing-2: calc(2 * var(--unit));
+      --spacing-3: calc(3 * var(--unit));
+      --spacing-4: calc(4 * var(--unit));
+      --spacing-6: calc(6 * var(--unit));
+    }
+
+
+    /* ============================================================
+       random() — Valores aleatorios en CSS (propuesta experimental)
+       Genera un número aleatorio en un rango dado.
+       random(min, max) — recalculado en cada render
+       NOTA: soporte mínimo; simulamos con custom properties JS-free
+       usando animaciones con diferentes delays para efecto aleatorio.
+    ============================================================ */
+
+    .random-bar {
+      height: 8px;
+      border-radius: 4px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-3));
+      /* Simulamos "ancho aleatorio" con animation-delay personalizado */
+      animation: grow-bar 2s var(--ease) infinite alternate;
+      animation-delay: var(--delay, 0s);
+    }
+
+    @keyframes grow-bar {
+      from { width: 20%; opacity: .5; }
+      to   { width: var(--target-w, 80%); opacity: 1; }
+    }
+
+
+    /* ============================================================
+       attr() — Acceder a atributos HTML desde CSS
+       attr(nombre-atributo tipo, fallback)
+       Permite leer valores HTML directamente en CSS.
+       CSS Values Level 5 extiende attr() a propiedades no-content.
+    ============================================================ */
+
+    /* Uso clásico en pseudo-elementos */
+    [data-label]::before {
+      content: attr(data-label);        /* lee el atributo data-label */
+      font-family: var(--font-code);
+      font-size: .65rem;
+      background: var(--accent);
+      color: var(--bg);
+      padding: .1em .4em;
+      border-radius: 3px;
+      margin-right: .5em;
+      font-weight: 700;
+      letter-spacing: .05em;
+      vertical-align: middle;
+    }
+
+    /* CSS Values 5: attr() para propiedades no-content (experimental)
+       [data-width] { width: attr(data-width px, 100px); }
+       Por ahora requiere flag o polyfill. */
+
+    /* Tooltip con attr() — técnica ampliamente soportada */
+    [data-tip] {
+      position: relative;
+      cursor: help;
+      border-bottom: 1px dashed var(--accent);
+    }
+
+    [data-tip]::after {
+      content: attr(data-tip);          /* lee el tooltip del HTML */
+      position: absolute;
+      bottom: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%) scale(0.9);
+      background: var(--bg-card);
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: .4em .8em;
+      border-radius: 6px;
+      font-size: .75rem;
+      white-space: nowrap;
+      font-family: var(--font-code);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity .2s, transform .2s;
+      z-index: 100;
+    }
+
+    [data-tip]:hover::after {
+      opacity: 1;
+      transform: translateX(-50%) scale(1);
+    }
+
+
+    /* ============================================================
+       TIPOS DE DATOS EN CSS
+       CSS es un lenguaje tipado. Los valores tienen tipos específicos:
+       <length>   → 10px, 2rem, 50vh
+       <color>    → #fff, rgb(), hsl(), oklch()
+       <number>   → 1.5, 0.3
+       <integer>  → 2, -1
+       <percentage> → 50%
+       <angle>    → 45deg, 1.57rad
+       <time>     → 0.3s, 200ms
+       <string>   → "Hola"
+       <url>      → url('img.png')
+       <ratio>    → 16/9
+       <custom-ident> → my-keyframe
+    ============================================================ */
+
+    /* Ejemplo usando distintos tipos de datos */
+    .data-types-demo {
+      /* <color> con oklch (espacio perceptual) */
+      color: oklch(0.75 0.15 160);
+
+      /* <length> con unidades dinámicas */
+      padding: var(--spacing-3);
+
+      /* <angle> en gradientes */
+      background: linear-gradient(135deg, var(--bg-card), #1a1a2e);
+
+      /* <time> en transiciones */
+      transition: all 300ms ease;
+
+      /* <ratio> en aspect-ratio */
+      aspect-ratio: 16 / 9;
+
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+
+    /* ============================================================
+       LAYOUT PRINCIPAL
+    ============================================================ */
+
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 50;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem var(--gap);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--accent);
+      letter-spacing: -.02em;
+    }
+
+    .nav-tags {
+      display: flex;
+      gap: .5rem;
+      flex-wrap: wrap;
+    }
+
+    .nav-tag {
+      font-family: var(--font-code);
+      font-size: .65rem;
+      padding: .2em .6em;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      color: var(--text-muted);
+    }
+
+    main {
+      padding-top: 80px;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding-inline: var(--gap);
+    }
+
+    /* HERO */
+    .hero {
+      padding-block: clamp(4rem, 10vw, 8rem);
+      text-align: center;
+      position: relative;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 50% at 50% 60%,
+        rgba(0,255,200,0.06), transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero h1 {
+      font-weight: 800;
+      letter-spacing: -.04em;
+      line-height: 1.1;
+      margin-block: 1rem 1.5rem;
+    }
+
+    .hero h1 span { color: var(--accent); }
+
+    .hero p {
+      color: var(--text-muted);
+      font-size: clamp(.9rem, 2vw, 1.1rem);
+      max-width: 55ch;
+      margin: 0 auto;
+    }
+
+    /* SECCIONES */
+    .section {
+      margin-bottom: clamp(3rem, 8vw, 6rem);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-num {
+      font-family: var(--font-code);
+      font-size: .75rem;
+      color: var(--accent);
+      background: rgba(0,255,200,.08);
+      border: 1px solid rgba(0,255,200,.2);
+      padding: .2em .6em;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+
+    /* TARJETAS */
+    .cards-grid {
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+      gap: var(--gap);
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: var(--spacing-4);
+      position: relative;
+      overflow: hidden;
+      transition: border-color .3s var(--ease), transform .3s var(--ease);
+    }
+
+    .card:hover {
+      border-color: rgba(0,255,200,.2);
+      transform: translateY(-3px);
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+      opacity: 0;
+      transition: opacity .3s;
+    }
+
+    .card:hover::before { opacity: 1; }
+
+    .card-icon {
+      font-size: 1.5rem;
+      margin-bottom: .75rem;
+    }
+
+    .card h3 {
+      font-weight: 700;
+      margin-bottom: .5rem;
+      color: var(--text);
+    }
+
+    .card p {
+      color: var(--text-muted);
+      font-size: .875rem;
+      line-height: 1.6;
+    }
+
+    /* BLOQUES DE CÓDIGO */
+    .code-block {
+      background: var(--bg-code);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: var(--spacing-4);
+      font-family: var(--font-code);
+      font-size: .8rem;
+      line-height: 1.8;
+      overflow-x: auto;
+      position: relative;
+    }
+
+    .code-block::before {
+      content: attr(data-label);
+      position: absolute;
+      top: .6rem; right: .8rem;
+      font-size: .65rem;
+      color: var(--text-muted);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .c-comment  { color: #6a737d; }
+    .c-prop     { color: var(--accent); }
+    .c-value    { color: #f97583; }
+    .c-func     { color: var(--accent-3); }
+    .c-number   { color: #ffab70; }
+    .c-at       { color: #79c0ff; }
+    .c-keyword  { color: #ff7b72; }
+
+    /* DEMO INTERACTIVA */
+    .demo-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: var(--spacing-4);
+    }
+
+    .demo-title {
+      font-family: var(--font-code);
+      font-size: .7rem;
+      color: var(--accent);
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .two-col {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--gap);
+    }
+
+    /* Toggle buttons */
+    .toggle-group {
+      display: flex;
+      flex-direction: column;
+      gap: .75rem;
+    }
+
+    /* Barras aleatorias */
+    .bars-demo {
+      display: flex;
+      flex-direction: column;
+      gap: .5rem;
+    }
+
+    /* Escala tipográfica */
+    .type-demo {
+      display: flex;
+      flex-direction: column;
+      gap: .5rem;
+    }
+
+    .type-demo span {
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .type-demo .label {
+      font-family: var(--font-code);
+      font-size: .65rem;
+      color: var(--text-muted);
+      margin-left: .5em;
+    }
+
+    /* Attr demo */
+    .attr-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: .5rem;
+    }
+
+    .attr-list li {
+      padding: .5rem .75rem;
+      background: rgba(255,255,255,.03);
+      border-radius: 6px;
+      font-size: .875rem;
+    }
+
+    /* Tipos de datos */
+    .types-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: .75rem;
+    }
+
+    .type-chip {
+      background: rgba(255,255,255,.03);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: .75rem;
+      font-family: var(--font-code);
+    }
+
+    .type-chip .type-name {
+      color: var(--accent-3);
+      font-size: .75rem;
+      font-weight: 700;
+      display: block;
+      margin-bottom: .25rem;
+    }
+
+    .type-chip .type-example {
+      color: var(--accent-2);
+      font-size: .7rem;
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 3rem var(--gap);
+      border-top: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: .8rem;
+      font-family: var(--font-code);
+    }
+
+    footer span { color: var(--accent); }
+
+    /* RESPONSIVE */
+    @media (max-width: 600px) {
+      .two-col > * { width: 100%; }
+      .nav-tags { display: none; }
+    }
+
+    /* ============================================================
+       ANIMACIONES DE ENTRADA
+       Usamos animation + @keyframes para revelar el contenido.
+    ============================================================ */
+
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero > * {
+      animation: fade-up .8s var(--ease) both;
+    }
+
+    .hero > *:nth-child(1) { animation-delay: .1s; }
+    .hero > *:nth-child(2) { animation-delay: .25s; }
+    .hero > *:nth-child(3) { animation-delay: .4s; }
+    .hero > *:nth-child(4) { animation-delay: .55s; }
